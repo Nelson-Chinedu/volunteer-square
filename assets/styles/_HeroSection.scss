@@ -1,0 +1,21 @@
+.c-heroSection {
+  background-image: url('/images/bgImage.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 500px;
+
+  .c-heroSection-intro {
+    width: 60%;
+    margin-top: 2em;
+    margin-left: 20px;
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 50px;
+      font-style: normal;
+      line-height: 96px;
+      color: #fff;
+    }
+  }
+}
