@@ -9,6 +9,7 @@ import '../assets/styles/_CardContainer.scss';
 import '../assets/styles/_LoginForm.scss';
 import '../assets/styles/_Input.scss';
 import '../assets/styles/_Button.scss';
+import '../assets/styles/_SignupForm.scss';
 
 
 function MyApp({ Component, pageProps }: AppProps) {

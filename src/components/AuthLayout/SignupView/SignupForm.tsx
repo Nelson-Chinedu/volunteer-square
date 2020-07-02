@@ -1,14 +1,14 @@
 import React, { FunctionComponent, useState } from 'react';
 import Link from 'next/link';
 import { Form, Divider } from 'antd';
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 
 import InputForm from 'src/components/SharedLayout/Shared/Input';
 import ButtonForm from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
 
 
-const LoginForm: FunctionComponent<{}> = () => {
+const SignupForm: FunctionComponent<{}> = () => {
   const [ form ] = Form.useForm();
   const [ formLayout, setFormLayout ] = useState('vertical');
 
@@ -44,8 +44,24 @@ const LoginForm: FunctionComponent<{}> = () => {
         onValuesChange = { _onFormLayoutChange }
         className = " c-loginForm-container"
       >
+        <div className="flex justify-between w-full c-signupform-fullname">
+          <InputForm
+            label = "Firstname"
+            placeholder = "Enter Firstname"
+            type="text"
+            size="large"
+            prefix={<UserOutlined/>}
+          />
+          <InputForm
+            label = "Lastname"
+            placeholder = "Enter Lastname"
+            type="text"
+            size="large"
+            prefix={<UserOutlined/>}
+          />
+        </div>
         <InputForm
-          label = "Email Address"
+          label = "Email"
           placeholder = "Enter Email Address"
           type="email"
           size="large"
@@ -58,24 +74,21 @@ const LoginForm: FunctionComponent<{}> = () => {
           size="large"
           prefix={<LockOutlined/>}
         />
-        <Link href="#">
-          <a className="hover:underline">Forgot Password?</a>
-        </Link>
         <ButtonForm
           item = {buttonItemLayout}
           type = "submit"
           className = "w-full bg-blue-700 rounded text-white p-3 mt-6 mb-2"
         >
-          Sign In
+          Sign Up
         </ButtonForm>
          <Divider>or</Divider>
-         <SocialLogin />
-         <Link href="/auth/signup">
-          <p className="pt-4">New user? <a className="hover:underline">Register for free</a></p>
+         <SocialLogin/>
+         <Link href="/auth/login">
+          <p className="pt-4">Already have an account? <a className="hover:underline">Sign In</a></p>
         </Link>
       </Form>
     </div>
   )
 };
 
-export default LoginForm;
+export default SignupForm;
