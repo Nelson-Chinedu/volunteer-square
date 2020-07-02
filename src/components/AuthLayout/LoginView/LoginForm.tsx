@@ -38,7 +38,7 @@ const LoginForm: FunctionComponent<{}> = () => {
     <div className="my-5 w-2/5 m-auto c-loginForm">
       <Form
         { ...formItemLayout }
-        layout = { formLayout }
+        layout = "vertical"
         form = { form }
         initialValues = {{ layout: formLayout }}
         onValuesChange = { _onFormLayoutChange }
