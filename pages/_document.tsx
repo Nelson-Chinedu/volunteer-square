@@ -7,6 +7,7 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="icon" type="image/png" href="/favicon.png" />
           <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" key="viewport" />
           <meta name="theme-color" content="#000000" />

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-import HomePageNavbar from 'src/components/SharedLayout/Navbar/HomePageNavbar';
+import HomePageNavbar from 'src/components/SharedLayout/Navbar';
 import Button from 'src/components/SharedLayout/Shared/Button';
 
 
