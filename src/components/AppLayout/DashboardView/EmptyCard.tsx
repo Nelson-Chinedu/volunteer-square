@@ -13,7 +13,7 @@ const EmptyCard: FunctionComponent<{}> = () => {
           No Event Created
         </span>
       }
-      className="m-0 m-auto"
+      className="m-0 m-auto text-center"
     >
       <Button
         type="button"
