@@ -1,6 +1,5 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { Row } from 'antd';
-import 'antd/dist/antd.css';
 
 
 type Props = {
