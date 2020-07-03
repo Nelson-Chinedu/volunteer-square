@@ -1,0 +1,54 @@
+.c-DesktopSidebar {
+  width: 25%;
+  // height: 100vh;
+  background-color: #2B333E;
+  
+  .c-DesktopSidebar-top {
+    padding: 20px 0px 21px 0px;
+    height: 70px;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.3);
+  }
+  .c-DesktopSidebar-bottom {
+    background-color: #2B333E;
+
+    .c-DesktopSidebar-name {
+      font-size: 16px;
+      font-weight: 400;
+      // text-transform: capitalize;
+      color: #aeb7c2;
+      margin-bottom: 40px;
+    }
+    
+    .c-DesktopSidebar-bottom-profile {
+      padding: 25px 25px 10px 25px;
+      img {
+        width: 150px;
+        height: 110px;
+        border-radius: 50%;
+      }
+    }
+
+    .c-DesktopSidebar-bottom-menu {
+      .active {
+        color: #fff;
+        background-color:#3D434B ;
+      }
+      li {
+          font-family: 'Poppins', sans-serif;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 400;
+          color: #aeb7c2;
+          padding: 10px 35px;
+          line-height: 30px;
+          letter-spacing: 1px;
+        &:hover{
+          color: #fff;
+          background-color:#3D434B ;
+
+        }    
+      }
+    }
+
+  }
+}

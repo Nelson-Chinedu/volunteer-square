@@ -4,7 +4,7 @@ import { Form, Divider } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 
 import InputForm from 'src/components/SharedLayout/Shared/Input';
-import ButtonForm from 'src/components/SharedLayout/Shared/Button';
+import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
 
 
@@ -61,13 +61,13 @@ const LoginForm: FunctionComponent<{}> = () => {
         <Link href="#">
           <a className="hover:underline">Forgot Password?</a>
         </Link>
-        <ButtonForm
+        <Button
           item = {buttonItemLayout}
           type = "submit"
           className = "w-full bg-blue-700 rounded text-white p-3 mt-6 mb-2"
         >
           Sign In
-        </ButtonForm>
+        </Button>
          <Divider>or</Divider>
          <SocialLogin />
          <Link href="/auth/signup">

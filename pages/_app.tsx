@@ -10,6 +10,10 @@ import '../assets/styles/_LoginForm.scss';
 import '../assets/styles/_Input.scss';
 import '../assets/styles/_Button.scss';
 import '../assets/styles/_SignupForm.scss';
+import '../assets/styles/_DesktopSidebar.scss';
+import '../assets/styles/_DashboardNavbar.scss';
+import '../assets/styles/_DashboardView.scss';
+import '../assets/styles/_StatisticCard.scss';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
