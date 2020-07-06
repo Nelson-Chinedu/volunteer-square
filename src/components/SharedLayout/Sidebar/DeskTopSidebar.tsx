@@ -4,7 +4,7 @@ import { DashboardOutlined, LoginOutlined, UserOutlined, PlusOutlined, EyeOutlin
 
 const DesktopSidebar: FunctionComponent<{}> = () => {
   return (
-    <aside className="c-DesktopSidebar h-screen ">
+    <aside className="c-DesktopSidebar h-screen fixed">
       <div className="c-DesktopSidebar-top bg-white">
         <h2 className="text-black text-center">VolunteerSquare</h2>
       </div>
@@ -21,7 +21,7 @@ const DesktopSidebar: FunctionComponent<{}> = () => {
               </li>
             </a>
           </Link>
-          <Link href="#">
+          <Link href="/app/create-event">
             <a>
               <li className="text-white text-left flex items-center">
                 <PlusOutlined className="pr-2" /> Create Event

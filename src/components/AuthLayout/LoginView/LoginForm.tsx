@@ -59,7 +59,7 @@ const LoginForm: FunctionComponent<{}> = () => {
           prefix={<LockOutlined/>}
         />
         <Link href="#">
-          <a className="hover:underline">Forgot Password?</a>
+          <a className="underline hover:no-underline block text-right">Forgot Password?</a>
         </Link>
         <Button
           item = {buttonItemLayout}

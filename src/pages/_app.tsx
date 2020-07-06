@@ -19,6 +19,9 @@ import '../styles/_DesktopSidebar.scss';
 import '../styles/_DashboardNavbar.scss';
 import '../styles/_DashboardView.scss';
 import '../styles/_StatisticCard.scss';
+import '../styles/_CreateEventForm.scss';
+import '../styles/_CreateEventView.scss';
+
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
