@@ -21,6 +21,8 @@ import '../styles/_DashboardView.scss';
 import '../styles/_StatisticCard.scss';
 import '../styles/_CreateEventForm.scss';
 import '../styles/_CreateEventView.scss';
+import '../styles/_ProfileView.scss';
+import '../styles/_ProfileForm.scss';
 
 
 Router.events.on('routeChangeStart', () => NProgress.start());
