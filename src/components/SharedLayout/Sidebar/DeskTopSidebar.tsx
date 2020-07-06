@@ -35,7 +35,7 @@ const DesktopSidebar: FunctionComponent<{}> = () => {
               </li>
             </a>
           </Link>
-          <Link href="#">
+          <Link href="/app/profile">
             <a>
               <li className="text-white text-left flex items-center">
                 <UserOutlined className="pr-2" /> Profile
