@@ -1,0 +1,20 @@
+.c-createEventForm {
+  margin-left: 25%;
+  .c-createEventForm-container {
+    padding: 25px;
+    margin-left: 25%;
+    box-shadow: 0 0 4px 2px rgba(38,153,251,.18);
+
+      .c-createEvent-category >{
+        div {
+         width: 48%;
+       }
+    }
+
+    .c-createEvent-time >{
+      div {
+       width: 48%;
+     }
+  }
+  }
+}

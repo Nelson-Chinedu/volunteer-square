@@ -1,7 +1,17 @@
 .c-inputForm {
-  margin-bottom: 0px !important;
   
   input {
-    padding: 5px !important;
+    padding: 6.5px 11px;
+  }
+  .ant-input-prefix {
+    margin-right: 10px;
+}
+}
+.c-eventDescription{
+  padding: 6.5px 11px;
+  border:1px solid #d9d9d9;
+  &:focus {
+    border: 1px solid #1890ff;
+    outline: 1px solid #1890ff;
   }
 }
