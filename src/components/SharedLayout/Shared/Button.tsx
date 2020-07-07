@@ -6,18 +6,16 @@ type Props = {
   children: ReactNode;
   type: 'submit' | 'button';
   className: string;
-  item?: any;
 }
 
 const Button: FunctionComponent<Props> = ({
   type,
   className,
   children,
-  item
 }) => {
   return (
-    <Form.Item {...item} className="c-button-wrapper">
-      <button type={type} className={className} >
+    <Form.Item  className="c-button-wrapper">
+      <button type={type} className={className}>
         {children}
       </button>
     </Form.Item>
