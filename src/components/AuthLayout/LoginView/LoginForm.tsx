@@ -1,53 +1,61 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
-import { Form, Divider } from 'antd';
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { Divider, Spin } from 'antd';
+import { LockOutlined, MailOutlined, LoadingOutlined } from '@ant-design/icons';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
 
+const validationSchema = yup.object().shape({
+  email: yup.string()
+    .required('Required')
+    .email('Enter a valid E-mail Address'),
+  password: yup.string()
+    .required('Required'),
+});
 
 const LoginForm: FunctionComponent<{}> = () => {
-  const [ form ] = Form.useForm();
-  const [ formLayout, setFormLayout ] = useState('vertical');
 
-  const _onFormLayoutChange = ({ layout}: any) => {
-    setFormLayout(layout);
+  const _handleLogin = () => {
+    console.log('clicked');
   };
 
-  const formItemLayout = formLayout === 'vertical'
-    ?
-      {
-        labelCol: {
-          span: 24
-        },
-        wrapperCol: {
-          span: 48
-        },
-      } : null;
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    onSubmit: _handleLogin,
+    validationSchema,
+  });
 
-  const buttonItemLayout = formLayout === 'vertical' ?
-    {
-      wrapperCol: {
-        span: 48,
-      },
-    } : null;
+  const {
+    values,
+    errors,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = formik;
 
   return (
     <div className="my-5 w-2/5 m-auto c-loginForm">
-      <Form
-        { ...formItemLayout }
-        layout = "vertical"
-        form = { form }
-        initialValues = {{ layout: formLayout }}
-        onValuesChange = { _onFormLayoutChange }
+      <form
+        onSubmit={handleSubmit}
         className = " c-loginForm-container"
       >
         <InputForm
           label = "Email Address"
           placeholder = "Enter Email Address"
           type="email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.email}
           size="large"
           prefix={<MailOutlined/>}
         />
@@ -55,6 +63,11 @@ const LoginForm: FunctionComponent<{}> = () => {
           label = "Password"
           placeholder = "Enter Password"
           type="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.password}
           size="large"
           prefix={<LockOutlined/>}
         />
@@ -62,18 +75,21 @@ const LoginForm: FunctionComponent<{}> = () => {
           <a className="underline hover:no-underline block text-right">Forgot Password?</a>
         </Link>
         <Button
-          item = {buttonItemLayout}
           type = "submit"
           className = "w-full bg-blue-700 rounded text-white p-3 mt-6 mb-2"
         >
-          Sign In
+          {isSubmitting ? <Spin indicator={<LoadingOutlined className="text-white" />} /> : 'Sign In'}
         </Button>
          <Divider>or</Divider>
          <SocialLogin />
          <Link href="/auth/signup">
-          <p className="pt-4">New user? <a className="hover:underline">Register for free</a></p>
+          <p className="pt-4">New user?
+            <a className="pl-1 text-blue-700 underline hover:no-underline">
+              Register for free
+            </a>
+          </p>
         </Link>
-      </Form>
+      </form>
     </div>
   )
 };
