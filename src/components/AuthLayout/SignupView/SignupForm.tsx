@@ -166,7 +166,7 @@ const SignupForm: FunctionComponent<{}> = () => {
             !values.email ||
             !values.password
           }
-          className="text-white p-3 mt-6 mb-2"
+          className="w-full text-white p-3 mt-6 mb-2"
           filled={true}
         >
           {isSubmitting ? (

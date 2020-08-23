@@ -19,7 +19,7 @@ const Button: FunctionComponent<Props> = ({
   filled,
   ...others
 }) => {
-  const mainClassNames = classnames('w-full rounded cursor-pointer', {
+  const mainClassNames = classnames('rounded cursor-pointer', {
     'bg-blue-700': filled && !disabled,
     'bg-gray-700 cursor-not-allowed': disabled,
   });
