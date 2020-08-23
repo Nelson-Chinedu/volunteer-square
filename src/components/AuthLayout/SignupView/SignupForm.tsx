@@ -14,6 +14,8 @@ import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
 
+import callApi from 'src/lib/callApi';
+
 const validationSchema = yup.object().shape({
   firstname: yup.string().required('Required'),
   lastname: yup.string().required('Required'),
@@ -31,23 +33,18 @@ const SignupForm: FunctionComponent<{}> = () => {
   const [responseMessage, setResponseMessage] = useState('');
   const [responseStatus, setResponseStatus] = useState(null);
 
-  const apiUrl = 'http://localhost:8000/api/v1/signup';
-
   const _handleSignup = async () => {
-    const data = await fetch(apiUrl, {
-      credentials: 'same-origin',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        firstname: values.firstname,
-        lastname: values.lastname,
-        email: values.email,
-        password: values.password,
-      }),
+    const data = {
+      firstname: values.firstname,
+      lastname: values.lastname,
+      email: values.email,
+      password: values.password,
+    };
+    const response = await callApi({
+      url: '/api/v1/signup',
+      method: 'post',
+      data,
     });
-    const response = await data.json();
 
     if (response) {
       const { status, message } = response;
