@@ -7,8 +7,8 @@ type Props = {
   children: ReactNode;
   type: 'submit' | 'button';
   className: string;
-  disabled: boolean;
-  filled: boolean;
+  disabled?: boolean;
+  filled?: boolean;
 };
 
 const Button: FunctionComponent<Props> = ({
