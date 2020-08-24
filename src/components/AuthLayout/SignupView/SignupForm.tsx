@@ -1,7 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import Link from 'next/link';
-import { Divider, Spin } from 'antd';
-import { LockOutlined, MailOutlined, UserOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Divider, Spin, Alert } from 'antd';
+import {
+  LockOutlined,
+  MailOutlined,
+  UserOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -9,34 +14,66 @@ import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
 
+import callApi from 'src/lib/callApi';
+
 const validationSchema = yup.object().shape({
-  firstname: yup.string()
-    .required('Required'),
-  lastname: yup.string()
-    .required('Required'),
-  email: yup.string()
+  firstname: yup.string().required('Required'),
+  lastname: yup.string().required('Required'),
+  email: yup
+    .string()
     .email('Enter a valid E-mail Address')
     .required('Required'),
-  password: yup.string()
+  password: yup
+    .string()
     .required('Required')
     .min(8, 'Password must be 8 characters long'),
 });
 
 const SignupForm: FunctionComponent<{}> = () => {
+  const [responseMessage, setResponseMessage] = useState('');
+  const [responseStatus, setResponseStatus] = useState(null);
 
-  const _handleSignup = () => {
-    console.log('clicked');
-  }
+  const _handleSignup = async () => {
+    const data = {
+      firstname: values.firstname,
+      lastname: values.lastname,
+      email: values.email,
+      password: values.password,
+    };
+    const response = await callApi({
+      url: '/api/v1/signup',
+      method: 'post',
+      data,
+    });
+
+    if (response) {
+      const { status, message } = response;
+
+      if (status !== 201) {
+        setResponseMessage(message);
+        setResponseStatus(status);
+      } else {
+        setResponseMessage(message);
+        setResponseStatus(status);
+        resetForm();
+      }
+    }
+  };
+
+  const _handleClose = () => {
+    setResponseMessage('');
+    setResponseStatus(null);
+  };
 
   const formik = useFormik({
     initialValues: {
       firstname: '',
       lastname: '',
       email: '',
-      password: ''
+      password: '',
     },
     onSubmit: _handleSignup,
-    validationSchema
+    validationSchema,
   });
 
   const {
@@ -46,18 +83,29 @@ const SignupForm: FunctionComponent<{}> = () => {
     handleSubmit,
     handleChange,
     handleBlur,
+    resetForm,
   } = formik;
 
   return (
     <div className="my-5 w-2/5 m-auto c-loginForm">
-      <form
-        onSubmit={handleSubmit}
-        className = " c-loginForm-container"
-      >
+      <form onSubmit={handleSubmit} className="c-loginForm-container">
+        {responseMessage ? (
+          <Alert
+            message={responseMessage}
+            type={responseStatus !== 201 ? 'error' : 'success'}
+            showIcon
+            closable
+            onClose={_handleClose}
+            className="mb-4"
+          />
+        ) : (
+          ''
+        )}
+
         <div className="flex justify-between w-full c-signupform-fullname">
           <InputForm
-            label = "Firstname"
-            placeholder = "Enter Firstname"
+            label="Firstname"
+            placeholder="Enter Firstname"
             type="text"
             name="firstname"
             value={values.firstname}
@@ -65,11 +113,11 @@ const SignupForm: FunctionComponent<{}> = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             error={errors.firstname}
-            prefix={<UserOutlined/>}
+            prefix={<UserOutlined />}
           />
           <InputForm
-            label = "Lastname"
-            placeholder = "Enter Lastname"
+            label="Lastname"
+            placeholder="Enter Lastname"
             type="text"
             name="lastname"
             value={values.lastname}
@@ -77,12 +125,12 @@ const SignupForm: FunctionComponent<{}> = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             error={errors.lastname}
-            prefix={<UserOutlined/>}
+            prefix={<UserOutlined />}
           />
         </div>
         <InputForm
-          label = "Email"
-          placeholder = "Enter Email Address"
+          label="Email"
+          placeholder="Enter Email Address"
           type="email"
           name="email"
           value={values.email}
@@ -90,12 +138,12 @@ const SignupForm: FunctionComponent<{}> = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           error={errors.email}
-          prefix={<MailOutlined/>}
+          prefix={<MailOutlined />}
           className="w-full"
         />
         <InputForm
-          label = "Password"
-          placeholder = "Enter Password"
+          label="Password"
+          placeholder="Enter Password"
           type="password"
           name="password"
           value={values.password}
@@ -103,19 +151,32 @@ const SignupForm: FunctionComponent<{}> = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           error={errors.password}
-          prefix={<LockOutlined/>}
+          prefix={<LockOutlined />}
           className="w-full"
         />
         <Button
-          type = "submit"
-          className = "w-full bg-blue-700 rounded text-white p-3 mt-6 mb-2"
+          type="submit"
+          disabled={
+            isSubmitting ||
+            !values.firstname ||
+            !values.lastname ||
+            !values.email ||
+            !values.password
+          }
+          className="w-full text-white p-3 mt-6 mb-2"
+          filled={true}
         >
-          { isSubmitting? <Spin indicator={<LoadingOutlined/>} className="text-white" /> : 'Sign Up' }
+          {isSubmitting ? (
+            <Spin indicator={<LoadingOutlined />} className="text-white" />
+          ) : (
+            'Sign Up'
+          )}
         </Button>
-         <Divider>or</Divider>
-         <SocialLogin/>
-         <Link href="/auth/login">
-          <p className="pt-4">Already have an account?
+        <Divider>or</Divider>
+        <SocialLogin />
+        <Link href="/auth/login">
+          <p className="pt-4">
+            Already have an account?
             <a className="pl-1 text-blue-700 underline hover:no-underline">
               Sign In
             </a>
@@ -123,7 +184,7 @@ const SignupForm: FunctionComponent<{}> = () => {
         </Link>
       </form>
     </div>
-  )
+  );
 };
 
 export default SignupForm;
