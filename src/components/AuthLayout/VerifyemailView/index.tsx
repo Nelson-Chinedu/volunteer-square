@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useEffect, useState } from 'src/components/AuthLayout/VerifyemailView/node_modules/react';
-import Link from 'src/components/AuthLayout/VerifyemailView/node_modules/next/link';
-import { useRouter } from 'src/components/AuthLayout/VerifyemailView/node_modules/next/router';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Button from 'src/components/SharedLayout/Shared/Button';
 
