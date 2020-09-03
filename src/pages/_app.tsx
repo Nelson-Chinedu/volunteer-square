@@ -5,7 +5,6 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import 'antd/dist/antd.css';
 
-
 import '../styles/_Index.scss';
 import '../styles/_HeroSection.scss';
 import '../styles/_EventSearch.scss';
@@ -23,14 +22,14 @@ import '../styles/_CreateEventForm.scss';
 import '../styles/_CreateEventView.scss';
 import '../styles/_ProfileView.scss';
 import '../styles/_ProfileForm.scss';
-
+import '../styles/_VerifyEmail.scss';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 function MyApp({ Component, pageProps }: AppProps) {
-	return <Component {...pageProps} />
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+export default MyApp;
