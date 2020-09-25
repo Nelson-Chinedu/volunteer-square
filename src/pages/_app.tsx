@@ -6,6 +6,7 @@ import 'nprogress/nprogress.css';
 import 'antd/dist/antd.css';
 
 import '../styles/_Index.scss';
+import '../styles/_Navbar.scss';
 import '../styles/_HeroSection.scss';
 import '../styles/_EventSearch.scss';
 import '../styles/_Events.scss';

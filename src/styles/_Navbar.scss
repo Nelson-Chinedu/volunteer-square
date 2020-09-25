@@ -1,0 +1,16 @@
+.c-Navbar {
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+  .c-Navbar-menu {
+    a {
+      &:hover {
+        color: #b2b2b2;
+      }
+    }
+    .c-Navbar-signup {
+      &:hover {
+        color: #fff;
+        background-color: #f59090;
+      }
+    }
+  }
+}

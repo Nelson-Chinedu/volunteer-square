@@ -1,4 +1,5 @@
 import React from 'react';
+
 import VerifyEmail from 'src/components/AuthLayout/VerifyemailView';
 
 const verifyEmailPage = () => {

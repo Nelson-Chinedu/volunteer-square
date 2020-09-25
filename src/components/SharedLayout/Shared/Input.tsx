@@ -1,10 +1,15 @@
-import React, { FunctionComponent, ReactNode, useState, ChangeEvent } from 'react';
-import { Input} from 'antd';
-
+import React, { FunctionComponent, ReactNode, ChangeEvent } from 'react';
+import { Input } from 'antd';
 
 type sizeType = 'small' | 'middle' | 'large';
 
-type defaultType = 'text' | 'email' | 'password' | 'search' | 'tel' | 'textarea';
+type defaultType =
+  | 'text'
+  | 'email'
+  | 'password'
+  | 'search'
+  | 'tel'
+  | 'textarea';
 
 type Props = {
   placeholder: string;
@@ -15,10 +20,12 @@ type Props = {
   size: sizeType;
   prefix?: string | ReactNode;
   onBlur: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  value: string;
+  onChange: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  value: any;
   error?: string;
-}
+};
 
 const InputForm: FunctionComponent<Props> = ({
   label,
@@ -33,10 +40,6 @@ const InputForm: FunctionComponent<Props> = ({
   value,
   error,
 }) => {
-  const [description, setDescription] = useState('');
-  const _handleChange = (e:any) => {
-    setDescription(e.target.value);
-  }
   if (type === 'textarea') {
     return (
       <div>
@@ -45,33 +48,33 @@ const InputForm: FunctionComponent<Props> = ({
           placeholder={placeholder}
           id={label}
           className={className}
-          onChange={_handleChange}
+          onChange={onChange}
           onBlur={onBlur}
-          value={description}
+          value={value}
+          name={name}
         />
         <p className="text-red-400">{error}</p>
       </div>
-    )
+    );
   }
   return (
     <div className="mb-4">
       <label htmlFor={label}>{label} </label>
-        <Input
-          size={size}
-          type={type}
-          name={name}
-          placeholder={placeholder}
-          id={label}
-          className={className}
-          onChange={onChange}
-          onBlur={onBlur}
-          value={value}
-          prefix={prefix}
-        />
-        <p className="text-red-400">{error}</p>
+      <Input
+        size={size}
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        id={label}
+        className={className}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+        prefix={prefix}
+      />
+      <p className="text-red-400">{error}</p>
     </div>
-  )
+  );
 };
-
 
 export default InputForm;

@@ -3,6 +3,7 @@ import {
   ICallApiParameters,
   IResponseData,
 } from 'src/interface/CallApi';
+import store from 'store';
 
 const callApi: CallApiType = async ({
   url,
@@ -12,8 +13,15 @@ const callApi: CallApiType = async ({
 }: ICallApiParameters): Promise<IResponseData> => {
   try {
     const body = upload ? data : JSON.stringify(data);
+    const token = store.get('__cnt');
+
+    const customHeader = { Authorization: token ? `Bearer ${token}` : '' };
+
     const response = await fetch(`${process.env.API_URL}${url}`, {
-      headers: { ...(!upload && { 'Content-Type': 'application/json' }) },
+      headers: {
+        ...customHeader,
+        ...(!upload && { 'Content-Type': 'application/json' }),
+      },
       method,
       body,
     });

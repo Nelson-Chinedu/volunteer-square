@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Divider, Spin, Alert } from 'antd';
+import { Divider, Spin, Alert, notification } from 'antd';
 import { LockOutlined, MailOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import store from 'store';
 
 import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
@@ -36,13 +37,16 @@ const LoginForm: FunctionComponent<{}> = () => {
       data,
     });
     if (response) {
-      const { status, message } = response;
+      const { status, message, payload } = response;
       if (status !== 200) {
         setResponseMessage(message);
         setResponseStatus(status);
       } else {
-        setResponseMessage(message);
-        setResponseStatus(status);
+        store.set('__cnt', payload.token);
+        notification.success({
+          message: 'Message',
+          description: 'Login Successfully',
+        });
         resetForm();
         router.push('/app/dashboard');
       }
