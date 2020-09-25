@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Spin, Select, DatePicker, TimePicker, notification } from 'antd';
+import { Spin, Select, DatePicker, TimePicker } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import Input from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 import { CREATE_EVENT } from 'src/queries';
 
@@ -45,10 +46,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             },
           },
         } = userData;
-        notification.success({
-          message: 'Message',
-          description: `${message}`
-        })
+        Snackbar('Message', `${message}`);
         resetForm();
       }
     } catch (err) {

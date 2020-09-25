@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
-import { notification, Spin } from 'antd';
+import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -7,6 +7,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 import { GET_PROFILE, UPDATE_PROFILE } from 'src/queries';
 
@@ -59,21 +60,12 @@ const ProfileForm: FunctionComponent<{}> = () => {
             },
           },
         } = userData;
-        notification.success({
-          message: 'Message',
-          description: `${message}`,
-        });
+        Snackbar('Message', `${message}`);
       } else {
-        notification.error({
-          message: 'Message',
-          description: 'An error occured',
-        });
+        Snackbar('Message', 'An error occured');
       }
     } catch (err) {
-      notification.error({
-        message: 'Message',
-        description: 'An error occured',
-      });
+      Snackbar('Message', 'An error occured');
     }
   };
 

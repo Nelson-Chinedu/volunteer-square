@@ -22,7 +22,7 @@ const AllEvents: FunctionComponent<{}> = () => {
     <ApolloProvider client={client}>
       <HomePageNavbar />
       <div className="mt-20">
-        <Events title={event} category={event} seeAll={false} />
+        <Events headline={event} category={event} seeAll={false} />
       </div>
     </ApolloProvider>
   );

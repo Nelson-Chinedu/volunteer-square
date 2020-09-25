@@ -9,17 +9,15 @@ import {
   EyeOutlined,
 } from '@ant-design/icons';
 import store from 'store';
-import { notification } from 'antd';
+
+import { Snackbar } from '../Shared/Snackbar';
 
 const DesktopSidebar: FunctionComponent<{}> = () => {
   const router = useRouter();
 
   const _handleLogout = () => {
     store.remove('__cnt');
-    notification.success({
-      message: 'Message',
-      description: 'Logout successfully',
-    });
+    Snackbar('Message', 'Logout successfully');
     router.push('/');
   };
 

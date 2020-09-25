@@ -10,15 +10,16 @@ import { GET_EVENTS } from 'src/queries';
 
 type Props = {
   id?: string;
-  description?: string;
-  title: string | string[];
+  headline: string | string[];
+  name?: string;
+  title?: string;
   category?: string | string[];
   seeAll: boolean;
 };
 
 const EventCategory: FunctionComponent<Props> = ({
+  headline,
   category,
-  title,
   seeAll,
 }) => {
   const [skip, setSkip] = useState(null);
@@ -40,7 +41,7 @@ const EventCategory: FunctionComponent<Props> = ({
   if (!data || loading) {
     return (
       <>
-        <h2 className="text-4xl ml-12 mb-4 c-Events-container">{title}</h2>
+        <h2 className="text-4xl ml-12 mb-4 c-Events-container">{headline}</h2>
         <div className="flex container mx-auto justify-around c-Events-container mb-8">
           <div className="flex justify-around items-center w-full">
             <LazyLoad
@@ -84,7 +85,7 @@ const EventCategory: FunctionComponent<Props> = ({
   if (events.length <= 0) {
     return (
       <div className="mb-8">
-        <h2 className="text-4xl ml-12 mb-4 c-Events-container">{title}</h2>
+        <h2 className="text-4xl ml-12 mb-4 c-Events-container">{headline}</h2>
         <h4 className="text-center">No event added</h4>
       </div>
     );
@@ -94,7 +95,7 @@ const EventCategory: FunctionComponent<Props> = ({
   return (
     <div className="container mx-auto c-Events-container">
       <div className="container mx-auto flex items-center justify-between c-Events-container">
-        <h2 className="text-4xl">{title}</h2>
+        <h2 className="text-4xl">{headline}</h2>
         {seeAll ? (
           <Link href="/find/[event]" as={route}>
             <a className="mr-8">See all</a>
@@ -105,14 +106,14 @@ const EventCategory: FunctionComponent<Props> = ({
       </div>
       <div className="box-border mt-4">
         {events.map((event: Props) => {
-          const { description, id } = event;
+          const { id, name } = event;
           return (
             <GridContainer gutter={[8, 48]} key={id}>
               <div>
-                <CardContainer description={description} id={id}>
+                <CardContainer title={name} id={id}>
                   <Link href="/event/[event]" as={`/event/${id}`}>
-                    <a className="block bg-red-400 w-full py-2 mt-4 text-white">
-                      Volunteer
+                    <a className="block bg-red-400 w-full py-2 mt-4 text-white hover:text-white hover:bg-red-500">
+                      View Event
                     </a>
                   </Link>
                 </CardContainer>

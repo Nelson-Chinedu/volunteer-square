@@ -10,10 +10,10 @@ const HomePageView: FunctionComponent<{}> = () => {
     <div>
       <HeroSection />
       <EventSearch />
-      <EventCategory title="Events near you" seeAll={true} />
-      <EventCategory title="Tech Events" category="Tech" seeAll={true} />
+      <EventCategory headline="Events near you" seeAll={true} />
+      <EventCategory headline="Tech Events" category="Tech" seeAll={true} />
       <EventCategory
-        title="Sport &amp; Fitness"
+        headline="Sport &amp; Fitness"
         category="Sport and Fitness"
         seeAll={true}
       />

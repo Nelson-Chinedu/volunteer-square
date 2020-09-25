@@ -18,7 +18,7 @@ const AllEvents: FunctionComponent<{}> = () => {
     <ApolloProvider client={client}>
       <HomePageNavbar />
       <div className="mt-20">
-        <Events title="Events" seeAll={false} />
+        <Events headline="Events" seeAll={false} />
       </div>
     </ApolloProvider>
   );

@@ -1,11 +1,13 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import { Breadcrumb, notification } from 'antd';
+import { Breadcrumb } from 'antd';
 import { useRouter } from 'next/router';
 import store from 'store';
 
+import EmptyCard from 'src/components/AppLayout/DashboardView/EmptyCard';
+
 import DesktopSidebar from 'src/components/SharedLayout/Sidebar/DeskTopSidebar';
 import DashboardNavbar from 'src/components/SharedLayout/Navbar/DashboardNavbar';
-import EmptyCard from 'src/components/AppLayout/DashboardView/EmptyCard';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 const DashboardView: FunctionComponent<{}> = () => {
   const router = useRouter();
@@ -15,10 +17,10 @@ const DashboardView: FunctionComponent<{}> = () => {
   useEffect(() => {
     if (!storageDetails) {
       router.push('/auth/login');
-      notification.error({
-        message: 'Permission denied',
-        description: 'You need to be logged in to view that page',
-      });
+      Snackbar(
+        'Permission denied',
+        'You need to be logged in to view that page'
+      );
     }
   }, []);
 

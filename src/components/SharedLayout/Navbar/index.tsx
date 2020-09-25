@@ -33,11 +33,6 @@ const HomePageNavbar: FunctionComponent<{}> = () => {
         w-full block  lg:flex lg:items-center lg:w-auto c-Navbar-menu`}
       >
         <div className="text-sm lg:flex-grow">
-          <Link href="/">
-            <a className="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-black-100 mr-4">
-              Home
-            </a>
-          </Link>
           <Link href="auth/login">
             <a className="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-white mr-4">
               Login
@@ -46,7 +41,7 @@ const HomePageNavbar: FunctionComponent<{}> = () => {
         </div>
         <div>
           <Link href="auth/signup">
-            <a className="inline-block bg-red-400 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-white mt-4 lg:mt-0 c-Navbar-signup">
+            <a className="inline-block bg-red-400 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-white hover:bg-red-500 mt-4 lg:mt-0 c-Navbar-signup">
               Create Event
             </a>
           </Link>

@@ -1,12 +1,14 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Breadcrumb, notification } from 'antd';
+import { Breadcrumb } from 'antd';
 import store from 'store';
 
 import CreateEventForm from 'src/components/AppLayout/CreateEventView/CreateEventForm';
+
 import DesktopSidebar from 'src/components/SharedLayout/Sidebar/DeskTopSidebar';
 import DashboardNavbar from 'src/components/SharedLayout/Navbar/DashboardNavbar';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 
 const CreateEventView: FunctionComponent<{}> = () => {
@@ -16,10 +18,7 @@ const CreateEventView: FunctionComponent<{}> = () => {
   useEffect(() => {
     if (!storageDetails){
       router.push('/auth/login');
-      notification.error({
-        message: 'Permission denied',
-        description: 'You need to be logged in to view that page',
-      });
+      Snackbar('Permission denied', 'You need to be logged in to view that page');
     }
   },[]);
 
