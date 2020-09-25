@@ -3,11 +3,12 @@ import { Col, Card } from 'antd';
 
 type Props = {
   id: string;
-  description: string;
+  title?: string;
+  description?: string;
   children: React.ReactNode;
 };
 
-const CardContainer: FunctionComponent<Props> = ({ description, children }) => {
+const CardContainer: FunctionComponent<Props> = ({ children, title }) => {
   const { Meta } = Card;
 
   return (
@@ -18,7 +19,7 @@ const CardContainer: FunctionComponent<Props> = ({ description, children }) => {
           style={{ width: 250 }}
           cover={<img src="/images/dummy.jpeg" />}
         >
-          <Meta className="text-left" description={description} />
+          <Meta className="text-left" description={title} />
           {children}
         </Card>
       </Col>

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Divider, Spin, Alert, notification } from 'antd';
+import { Divider, Spin, Alert } from 'antd';
 import { LockOutlined, MailOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -10,6 +10,7 @@ import store from 'store';
 import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 import callApi from 'src/lib/callApi';
 
@@ -43,10 +44,7 @@ const LoginForm: FunctionComponent<{}> = () => {
         setResponseStatus(status);
       } else {
         store.set('__cnt', payload.token);
-        notification.success({
-          message: 'Message',
-          description: 'Login Successfully',
-        });
+        Snackbar('Message', 'Login Successfully');
         resetForm();
         router.push('/app/dashboard');
       }
