@@ -10,7 +10,7 @@ import { GET_EVENTS } from 'src/queries';
 
 type Props = {
   id?: string;
-  headline: string;
+  headline: string | string[];
   name?: string;
   title?: string;
   category?: string | string[];
