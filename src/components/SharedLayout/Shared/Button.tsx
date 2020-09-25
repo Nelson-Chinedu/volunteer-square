@@ -21,7 +21,7 @@ const Button: FunctionComponent<Props> = ({
 }) => {
   const mainClassNames = classnames('rounded cursor-pointer', {
     'bg-blue-700': filled && !disabled,
-    'bg-gray-700 cursor-not-allowed': disabled,
+    'bg-gray-500': disabled,
   });
   return (
     <Form.Item className="c-button-wrapper">

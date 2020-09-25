@@ -1,18 +1,44 @@
 import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
-import { DashboardOutlined, LoginOutlined, UserOutlined, PlusOutlined, EyeOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
+import {
+  DashboardOutlined,
+  LoginOutlined,
+  UserOutlined,
+  PlusOutlined,
+  EyeOutlined,
+} from '@ant-design/icons';
+import store from 'store';
+import { notification } from 'antd';
 
 const DesktopSidebar: FunctionComponent<{}> = () => {
+  const router = useRouter();
+
+  const _handleLogout = () => {
+    store.remove('__cnt');
+    notification.success({
+      message: 'Message',
+      description: 'Logout successfully',
+    });
+    router.push('/');
+  };
+
   return (
     <aside className="c-DesktopSidebar h-screen fixed">
       <div className="c-DesktopSidebar-top bg-white">
-        <h2 className="text-black text-center">VolunteerSquare</h2>
+        <img src="/images/logoBrand.png" height="" alt="logo" className="c-logo"/>
       </div>
       <div className="c-DesktopSidebar-bottom ">
         <div className="c-DesktopSidebar-bottom-profile">
-          <img src="/images/avatar.png" alt="profile picture" className="m-auto" />
+          <img
+            src="/images/avatar.png"
+            alt="profile picture"
+            className="m-auto"
+          />
         </div>
-        <h4 className="text-white text-center capitalize c-DesktopSidebar-name">Howdy Nelson</h4>
+        <h4 className="text-white text-center capitalize c-DesktopSidebar-name">
+          Howdy Nelson
+        </h4>
         <ul className="c-DesktopSidebar-bottom-menu m-0">
           <Link href="/app/dashboard">
             <a>
@@ -28,7 +54,7 @@ const DesktopSidebar: FunctionComponent<{}> = () => {
               </li>
             </a>
           </Link>
-          <Link href="#">
+          <Link href="/app/view-event">
             <a>
               <li className="text-white text-left flex items-center">
                 <EyeOutlined className="pr-2" /> View Event
@@ -42,17 +68,15 @@ const DesktopSidebar: FunctionComponent<{}> = () => {
               </li>
             </a>
           </Link>
-          <Link href="/">
-            <a>
-              <li className="text-white text-left flex items-center">
-                <LoginOutlined className="pr-2" /> Logout
-              </li>
-            </a>
-          </Link>
+          <a onClick={_handleLogout}>
+            <li className="text-white text-left flex items-center">
+              <LoginOutlined className="pr-2" /> Logout
+            </li>
+          </a>
         </ul>
       </div>
     </aside>
-  )
+  );
 };
 
 export default DesktopSidebar;

@@ -1,10 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { Col, Card } from 'antd';
 
+type Props = {
+  id: string;
+  description: string;
+  children: React.ReactNode;
+};
 
-const CardContainer: FunctionComponent<{}> = () => {
-
-const { Meta } = Card;
+const CardContainer: FunctionComponent<Props> = ({ description, children }) => {
+  const { Meta } = Card;
 
   return (
     <>
@@ -14,11 +18,12 @@ const { Meta } = Card;
           style={{ width: 250 }}
           cover={<img src="/images/dummy.jpeg" />}
         >
-        <Meta className="text-left" description="This will be the event description" />
+          <Meta className="text-left" description={description} />
+          {children}
         </Card>
       </Col>
     </>
-  )
+  );
 };
 
 export default CardContainer;

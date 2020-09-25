@@ -1,157 +1,230 @@
-import React, { FunctionComponent } from 'react';
-import { TimePicker, DatePicker, Spin } from 'antd';
+import React, { FunctionComponent, useState } from 'react';
+import { Spin, Select, DatePicker, TimePicker, notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import Select from 'react-select';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useMutation } from '@apollo/react-hooks';
 
-import InputForm from 'src/components/SharedLayout/Shared/Input';
+import Input from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
-import UploadFile from 'src/components/AppLayout/CreateEventView/UploadFile';
+
+import { CREATE_EVENT } from 'src/queries';
+
+const { Option } = Select;
 
 const validationSchema = yup.object().shape({
-  eventName: yup.string()
-    .required('Required'),
-  eventCategory: yup.string()
-    .required('Required'),
-  eventLocation: yup.string()
-    .required('Required'),
-  eventDate: yup.string()
-    .required('Required'),
-  startTime: yup.string()
-    .required('Required'),
-  endTime: yup.string()
-    .required('Required'),
-  eventDescription: yup.string()
-    .required('Required'),
+  name: yup.string().required('Required'),
+  description: yup.string().required('Required'),
 });
 
 const CreateEventForm: FunctionComponent<{}> = () => {
+  const [eventCategory, setEventCategory] = useState('');
+  const [eventLocation, setEventLocation] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [eventTime, setEventTime] = useState('');
 
-  const _handleEventForm = () => {
-    console.log('clicked');
+  const [createEvent, { loading }] = useMutation(CREATE_EVENT);
+
+  const _handleEvent = async () => {
+    try {
+      const userData = await createEvent({
+        variables: {
+          name,
+          description,
+          category: eventCategory,
+          location: eventLocation,
+          time: eventTime,
+          date: eventDate,
+        },
+      });
+      if (userData) {
+        const {
+          data: {
+            client: {
+              createEvent: { message },
+            },
+          },
+        } = userData;
+        notification.success({
+          message: 'Message',
+          description: `${message}`
+        })
+        resetForm();
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   const formik = useFormik({
-   initialValues: {
-     eventName: '',
-     eventCategory: '',
-     eventLocation: '',
-     eventDate: '',
-     startTime: '',
-     endTime: '',
-     eventDescription: '',
-   },
-   onSubmit: _handleEventForm,
-   validationSchema
+    initialValues: {
+      name: '',
+      description: '',
+    },
+    onSubmit: _handleEvent,
+    validationSchema,
   });
 
   const {
-    values,
+    values: { name, description },
     isSubmitting,
     handleBlur,
     handleChange,
     handleSubmit,
+    resetForm,
     errors,
   } = formik;
 
-  const Defaultvalue = [
-    {value: 'default', label: 'Select category'},
-    {value: 'default', label: 'Select Location'},
+  const _handleCategorySelection = (value: any) => {
+    setEventCategory(value);
+  };
+
+  const _handleLocationSelection = (value: any) => {
+    setEventLocation(value);
+  };
+
+  const _handleTimeSelection = (value: any) => {
+    setEventTime(value);
+  };
+
+  const _handleDateSelection = (value: any) => {
+    setEventDate(value);
+  };
+
+  const defaultValue = [
+    { label: 'Select category' },
+    { label: 'Select Location' },
   ];
 
   const categoryOptions = [
-    {value: 'Tech', label: 'Tech'},
-    {value: 'Theatre', label: 'Theatre Art'}
+    { value: 'Tech', label: 'Tech' },
+    { value: 'Theatre', label: 'Theatre Art' },
   ];
 
   const locationOptions = [
-    {value: 'Lagos', label: 'Lagos'},
-    {value: 'Abuja', label: 'Abuja'},
-    {value: 'Ibadan', label: 'Ibadan'},
-    {value: 'Ogun', label: 'Ogun'},
-    {value: 'Abia', label: 'Abia'},
-    {value: 'Imo', label: 'Imo'},
-    {value: 'Anambra', label: 'Anambra'},
-    {value: 'Ebonyi', label: 'Ebonyi'},
+    { value: 'Lagos', label: 'Lagos' },
+    { value: 'Abuja', label: 'Abuja' },
+    { value: 'Ibadan', label: 'Ibadan' },
+    { value: 'Ogun', label: 'Ogun' },
+    { value: 'Abia', label: 'Abia' },
+    { value: 'Imo', label: 'Imo' },
+    { value: 'Anambra', label: 'Anambra' },
+    { value: 'Ebonyi', label: 'Ebonyi' },
   ];
 
   return (
     <div className="my-5 w-3/5 m-auto c-createEventForm">
       <form
         onSubmit={handleSubmit}
-        className = " c-createEventForm-container"
+        method="POST"
+        className="c-createEventForm-container"
       >
-        <InputForm
-          label = "Event Name"
-          placeholder = "Enter Event Name"
-          name="eventName"
-          value={values.eventName}
+        <Input
+          label="Event Name"
+          placeholder="Enter Event Name"
+          type="text"
+          name="name"
+          value={name}
           onChange={handleChange}
           onBlur={handleBlur}
-          type="text"
+          error={errors.name}
           size="large"
-          error={errors.eventName}
         />
         <div className="flex justify-between w-full mb-6 c-createEvent-category">
           <div>
-            <label htmlFor="eventCategory">Event Category</label>
+            <label>Category</label>
             <Select
-              defaultValue={Defaultvalue[0]}
-              options={categoryOptions}
-              id="eventCategory"
-              className="w-full mt-2"
-            />
+              className="w-full"
+              defaultValue={defaultValue[0].label}
+              onChange={_handleCategorySelection}
+            >
+              {categoryOptions.map((category) => {
+                return (
+                  <Option key={category.value} value={category.value}>
+                    {category.label}
+                  </Option>
+                );
+              })}
+            </Select>
+            <p className="text-red-400">{!eventCategory ? 'Required' : ''}</p>
           </div>
           <div>
-            <label htmlFor="eventLocation">Event Location</label>
+            <label>Location</label>
             <Select
-              defaultValue={Defaultvalue[1]}
-              options={locationOptions}
-              id="eventLocation"
-              className="w-full mt-2"
-            />
+              className="w-full"
+              defaultValue={defaultValue[1].label}
+              onChange={_handleLocationSelection}
+            >
+              {locationOptions.map((location) => {
+                return (
+                  <Option key={location.value} value={location.value}>
+                    {location.label}
+                  </Option>
+                );
+              })}
+            </Select>
+            <p className="text-red-400">{!eventLocation ? 'Required' : ''}</p>
           </div>
         </div>
-        <div className="mb-6">
-          <label htmlFor="eventDate">Event Date</label>
-          <DatePicker className="w-full mt-2" id="eventDate" size="large" />
-        </div>
-        <div className="flex justify-between w-full mb-6 c-createEvent-time">
+        <div className="flex justify-between w-full mb-6 c-createEvent-category">
+          <div>
+            <label htmlFor="eventDate">Event Date</label>
+            <DatePicker
+              className="w-full mt-2"
+              id="eventDate"
+              size="large"
+              onChange={_handleDateSelection}
+            />
+            <p className="text-red-400">{!eventDate ? 'Required' : ''}</p>
+          </div>
           <div>
             <label htmlFor="startTime">Start Time</label>
-            <TimePicker use12Hours format="h:mm a" id="startTime" className="w-full mt-2" size="large" />
-          </div>
-          <div>
-            <label htmlFor="endTime">End Time</label>
-            <TimePicker use12Hours format="h:mm a" id="endTime" className="w-full mt-2" size="large" />
+            <TimePicker
+              use12Hours
+              format="h:mm a"
+              id="startTime"
+              className="w-full mt-2"
+              size="large"
+              onChange={_handleTimeSelection}
+            />
+            <p className="text-red-400">{!eventTime ? 'Required' : ''}</p>
           </div>
         </div>
-        <InputForm
-          label = "Event Description"
-          placeholder = "Enter Event Description"
-          type = "textarea"
-          name="eventDescription"
-          value={values.eventDescription}
+        <Input
+          label="Event Description"
+          placeholder="Enter Event Description"
+          type="textarea"
+          name="description"
+          value={description}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={errors.eventDescription}
-          size = "large"
-          className = "w-full h-32 resize-none c-eventDescription"
+          error={errors.description}
+          size="large"
+          className="w-full h-32 resize-none c-eventDescription"
         />
-        <div>
-          <label htmlFor="">Upload Event Image</label>
-          <UploadFile />
-        </div>
         <Button
-          type = "submit"
-          className = "w-full bg-blue-700 rounded text-white p-3 mt-6 mb-2"
+          type="submit"
+          disabled={
+            isSubmitting ||
+            !name ||
+            !description ||
+            !eventDate ||
+            !eventTime ||
+            !eventCategory ||
+            !eventLocation
+          }
+          filled={true}
+          className="w-full text-white p-3 mt-6 mb-2"
         >
-          {isSubmitting ? <Spin indicator={<LoadingOutlined className="text-white" />} /> : 'Create Event'}
+          {isSubmitting && loading ? (
+            <Spin indicator={<LoadingOutlined className="text-white" />} />
+          ) : (
+            'Create Event'
+          )}
         </Button>
       </form>
     </div>
-  )
+  );
 };
 
 export default CreateEventForm;

@@ -11,7 +11,7 @@ const PageNotFound: FunctionComponent<{}> = () => {
         </a>
       </Link>
     </div>
-  )
+  );
 };
 
 export default PageNotFound;

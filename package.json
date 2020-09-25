@@ -32,6 +32,7 @@
     "react-dom": "16.13.1",
     "react-select": "^3.1.0",
     "react-toastify": "^6.0.6",
+    "store": "^2.0.12",
     "tailwindcss": "^1.4.6",
     "yup": "^0.28.5"
   },
@@ -42,6 +43,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-select": "^3.0.13",
+    "@types/store": "^2.0.2",
     "@types/webpack-env": "^1.15.2",
     "@types/yup": "^0.28.3",
     "postcss-css-variables": "^0.17.0",

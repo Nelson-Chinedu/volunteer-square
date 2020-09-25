@@ -1,13 +1,27 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import Link from 'next/link';
-import { Breadcrumb } from 'antd';
+import { useRouter } from 'next/router';
+import { Breadcrumb, notification } from 'antd';
+import store from 'store';
 
 import DesktopSidebar from 'src/components/SharedLayout/Sidebar/DeskTopSidebar';
 import DashboardNavbar from 'src/components/SharedLayout/Navbar/DashboardNavbar';
-import ProfileForm from 'src/components/AppLayout/Profile/ProfileForm';
+import ProfileForm from 'src/components/AppLayout/ProfileView/ProfileForm';
 
 
 const Profile: FunctionComponent<{}> = () => {
+  const router = useRouter();
+
+  const storageDetails = store.get('__cnt');
+  useEffect(() => {
+    if (!storageDetails){
+      router.push('/auth/login');
+      notification.error({
+        message: 'Permission denied',
+        description: 'You need to be logged in to view that page',
+      });
+    }
+  },[]);
   return (
     <div className="flex">
     <DesktopSidebar />

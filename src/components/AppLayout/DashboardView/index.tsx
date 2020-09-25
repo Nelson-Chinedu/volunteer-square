@@ -1,11 +1,27 @@
-import React, { FunctionComponent } from 'react';
-import { Breadcrumb } from 'antd';
+import React, { FunctionComponent, useEffect } from 'react';
+import { Breadcrumb, notification } from 'antd';
+import { useRouter } from 'next/router';
+import store from 'store';
 
 import DesktopSidebar from 'src/components/SharedLayout/Sidebar/DeskTopSidebar';
 import DashboardNavbar from 'src/components/SharedLayout/Navbar/DashboardNavbar';
 import EmptyCard from 'src/components/AppLayout/DashboardView/EmptyCard';
 
 const DashboardView: FunctionComponent<{}> = () => {
+  const router = useRouter();
+
+  const storageDetails = store.get('__cnt');
+
+  useEffect(() => {
+    if (!storageDetails) {
+      router.push('/auth/login');
+      notification.error({
+        message: 'Permission denied',
+        description: 'You need to be logged in to view that page',
+      });
+    }
+  }, []);
+
   return (
     <div className="flex">
       <DesktopSidebar />
@@ -27,11 +43,11 @@ const DashboardView: FunctionComponent<{}> = () => {
           </Breadcrumb>
         </div>
         <div className="w-auto c-DashboardView-content-area">
-          <EmptyCard/>
+          <EmptyCard />
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default DashboardView;
