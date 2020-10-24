@@ -2,6 +2,9 @@
   .c-loginForm-container {
     padding: 25px;
     box-shadow: 0 0 4px 2px rgba(38,153,251,.18);
+    @media (max-width: 640px) {
+      padding: 15px;
+    }
   }
 
   .c-loginForm-social {

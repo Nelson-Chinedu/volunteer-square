@@ -3,18 +3,22 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 500px;
+  line-height: 4em;
+  min-height: 550px;
+  @media (max-width: 640px) {
+    line-height: 3em;
+    margin-top: 3em;
+    min-height: 350px;
+  }
 
   .c-heroSection-intro {
-    width: 50%;
-    // margin-top: 2em;
-    margin-left: 20px;
+    // width: 50%;
+    // margin-left: 20px;
     h2 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 40px;
+      // font-weight: 700;
+      // font-size: 40px;
       font-style: normal;
-      // line-height: 96px;
       color: #fff;
     }
     button{

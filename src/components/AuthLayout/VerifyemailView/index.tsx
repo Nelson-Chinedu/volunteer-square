@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import Button from 'src/components/SharedLayout/Shared/Button';
 
-import callApi from 'src/lib/callApi';
+import callApi from 'src/utils/callApi';
 
 const VerifyEmail: FunctionComponent<{}> = () => {
   const router = useRouter();
@@ -35,7 +35,9 @@ const VerifyEmail: FunctionComponent<{}> = () => {
     responseCode !== 202
   ) {
     return (
-      <div className="c-verifyEmail text-black text-center mt-8 w-7/12 m-auto p-6 h-56 shadow-sm">
+      <div
+        className="c-verifyEmail text-black text-center mt-8 w-7/12 m-auto p-6 h-56 shadow-sm"
+      >
         {responseMessage}
       </div>
     );

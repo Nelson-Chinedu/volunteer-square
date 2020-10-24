@@ -1,13 +1,23 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import store from 'store';
 
-import HeroSection from './HeroSection';
-import EventSearch from './EventSearch';
-import EventCategory from './EventCategory';
-import Footer from './Footer';
+import HeroSection from 'src/components/MainLayout/HomePageView/HeroSection';
+import EventSearch from 'src/components/MainLayout/HomePageView/EventSearch';
+import EventCategory from 'src/components/MainLayout/HomePageView/EventCategory';
+import Footer from 'src/components/SharedLayout/Shared/Footer';
 
 const HomePageView: FunctionComponent<{}> = () => {
+  const router = useRouter();
+
+  const storageDetails = store.get('__cnt');
+  useEffect(() => {
+    if (storageDetails) {
+      router.push('/app/dashboard');
+    }
+  }, []);
   return (
-    <div>
+    <>
       <HeroSection />
       <EventSearch />
       <EventCategory headline="Events near you" seeAll={true} />
@@ -18,7 +28,7 @@ const HomePageView: FunctionComponent<{}> = () => {
         seeAll={true}
       />
       <Footer />
-    </div>
+    </>
   );
 };
 

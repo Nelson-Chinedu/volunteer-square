@@ -19,7 +19,9 @@ const DashboardView: FunctionComponent<{}> = () => {
       router.push('/auth/login');
       Snackbar(
         'Permission denied',
-        'You need to be logged in to view that page'
+        'You need to be logged in to view that page',
+        '#000',
+        '#fc8181'
       );
     }
   }, []);

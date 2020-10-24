@@ -1,11 +1,13 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
-import { Divider, Spin, Alert } from 'antd';
+import { Divider, Spin } from 'antd';
 import {
   LockOutlined,
   MailOutlined,
   UserOutlined,
   LoadingOutlined,
+  GoogleOutlined,
+  FacebookOutlined,
 } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -14,7 +16,8 @@ import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
 
-import callApi from 'src/lib/callApi';
+import callApi from 'src/utils/callApi';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 const validationSchema = yup.object().shape({
   firstname: yup.string().required('Required'),
@@ -30,8 +33,6 @@ const validationSchema = yup.object().shape({
 });
 
 const SignupForm: FunctionComponent<{}> = () => {
-  const [responseMessage, setResponseMessage] = useState('');
-  const [responseStatus, setResponseStatus] = useState(null);
 
   const _handleSignup = async () => {
     const data = {
@@ -50,19 +51,12 @@ const SignupForm: FunctionComponent<{}> = () => {
       const { status, message } = response;
 
       if (status !== 201) {
-        setResponseMessage(message);
-        setResponseStatus(status);
+        Snackbar('Message', message, '#000', '#fc8181');
       } else {
-        setResponseMessage(message);
-        setResponseStatus(status);
+        Snackbar('Message', message, '#000', '#68d391');
         resetForm();
       }
     }
-  };
-
-  const _handleClose = () => {
-    setResponseMessage('');
-    setResponseStatus(null);
   };
 
   const formik = useFormik({
@@ -87,21 +81,8 @@ const SignupForm: FunctionComponent<{}> = () => {
   } = formik;
 
   return (
-    <div className="my-5 w-2/5 m-auto c-loginForm">
+    <div className="my-5 md:w-5/12 w-11/12 m-auto c-loginForm">
       <form onSubmit={handleSubmit} className="c-loginForm-container">
-        {responseMessage ? (
-          <Alert
-            message={responseMessage}
-            type={responseStatus !== 201 ? 'error' : 'success'}
-            showIcon
-            closable
-            onClose={_handleClose}
-            className="mb-4"
-          />
-        ) : (
-          ''
-        )}
-
         <div className="flex justify-between w-full c-signupform-fullname">
           <InputForm
             label="Firstname"
@@ -173,7 +154,14 @@ const SignupForm: FunctionComponent<{}> = () => {
           )}
         </Button>
         <Divider>or</Divider>
-        <SocialLogin />
+        <>
+          <SocialLogin>
+            <GoogleOutlined className="mr-2" /> Signup with Google
+          </SocialLogin>
+          <SocialLogin>
+            <FacebookOutlined className="mr-2"/> Signup with Facebook
+          </SocialLogin>
+        </>
         <Link href="/auth/login">
           <p className="pt-4">
             Already have an account?

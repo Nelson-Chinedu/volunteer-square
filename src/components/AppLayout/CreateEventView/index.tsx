@@ -18,7 +18,12 @@ const CreateEventView: FunctionComponent<{}> = () => {
   useEffect(() => {
     if (!storageDetails){
       router.push('/auth/login');
-      Snackbar('Permission denied', 'You need to be logged in to view that page');
+      Snackbar(
+        'Permission denied',
+        'You need to be logged in to view that page',
+        '#000',
+        '#fc8181'
+      );
     }
   },[]);
 

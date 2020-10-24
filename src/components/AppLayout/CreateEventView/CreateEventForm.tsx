@@ -11,8 +11,6 @@ import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 import { CREATE_EVENT } from 'src/queries';
 
-const { Option } = Select;
-
 const validationSchema = yup.object().shape({
   name: yup.string().required('Required'),
   description: yup.string().required('Required'),
@@ -26,7 +24,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
 
   const [createEvent, { loading }] = useMutation(CREATE_EVENT);
 
-  const _handleEvent = async () => {
+  const _handleCreateEvent = async () => {
     try {
       const userData = await createEvent({
         variables: {
@@ -46,11 +44,11 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             },
           },
         } = userData;
-        Snackbar('Message', `${message}`);
+        Snackbar('Message', `${message}`, '#000', '#68d391');
         resetForm();
       }
     } catch (err) {
-      console.warn(err);
+      Snackbar('Message', 'An error occured', '#000', '#fc8181');
     }
   };
 
@@ -59,7 +57,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
       name: '',
       description: '',
     },
-    onSubmit: _handleEvent,
+    onSubmit: _handleCreateEvent,
     validationSchema,
   });
 
@@ -138,9 +136,9 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             >
               {categoryOptions.map((category) => {
                 return (
-                  <Option key={category.value} value={category.value}>
+                  <Select.Option key={category.value} value={category.value}>
                     {category.label}
-                  </Option>
+                  </Select.Option>
                 );
               })}
             </Select>
@@ -155,9 +153,9 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             >
               {locationOptions.map((location) => {
                 return (
-                  <Option key={location.value} value={location.value}>
+                  <Select.Option key={location.value} value={location.value}>
                     {location.label}
-                  </Option>
+                  </Select.Option>
                 );
               })}
             </Select>
@@ -199,6 +197,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
           error={errors.description}
           size="large"
           className="w-full h-32 resize-none c-eventDescription"
+          autoSize={{minRows: 10, maxRows: 15}}
         />
         <Button
           type="submit"

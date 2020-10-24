@@ -6,20 +6,19 @@ import HomePageNavbar from 'src/components/SharedLayout/Navbar';
 const HeroSection: FunctionComponent<{}> = () => {
   return (
     <header className="">
-      <HomePageNavbar />
+      <HomePageNavbar login="auth/login" signup="auth/signup" />
       <div className="flex c-heroSection items-center">
-        <div className="c-heroSection-intro">
-          <h2 className="text-white text-2xl m-0">
-            Put Your Event In Front of
+        <div className="md:w-1/2 w-full c-heroSection-intro">
+          <h2 className="text-white md:text-5xl md:font-bold font-semibold text-3xl md:ml-12 ml-3 mb-8">
+            Put Your Event In Front of Millions
           </h2>
-          <h2 className="text-white text-2xl m-0">Millions</h2>
           <Link href="/auth/signup">
-            <a className="bg-red-400 px-8 py-3 rounded text-white">
+            <a className="bg-red-400 px-8 py-3 md:ml-12 ml-3 rounded text-white">
               Get Started
             </a>
           </Link>
         </div>
-        <div>
+        <div className="hidden md:block">
           <img src="/images/heroImage.png" />
         </div>
       </div>

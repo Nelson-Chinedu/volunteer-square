@@ -10,14 +10,14 @@ import {
 } from '@ant-design/icons';
 import store from 'store';
 
-import { Snackbar } from '../Shared/Snackbar';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 const DesktopSidebar: FunctionComponent<{}> = () => {
   const router = useRouter();
 
   const _handleLogout = () => {
     store.remove('__cnt');
-    Snackbar('Message', 'Logout successfully');
+    Snackbar('Message', 'Logout successfully', '#000', '#fff');
     router.push('/');
   };
 

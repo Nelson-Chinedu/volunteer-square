@@ -1,7 +1,11 @@
 import React, { FunctionComponent, useState } from 'react';
 import Link from 'next/link';
+type Props = {
+  login: string;
+  signup: string;
+};
 
-const HomePageNavbar: FunctionComponent<{}> = () => {
+const HomePageNavbar: FunctionComponent<Props> = ({login, signup}) => {
   const [isExpanded, toggleExpansion] = useState(false);
 
   const _handleButton = () => {
@@ -9,9 +13,15 @@ const HomePageNavbar: FunctionComponent<{}> = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-white z-10 flex items-center justify-between flex-wrap p-3 c-Navbar">
+    <nav
+      className="fixed top-0 w-full bg-white z-10 flex items-center justify-between flex-wrap p-3 c-Navbar"
+    >
       <div className="flex items-center flex-shrink-0 text-white mr-6 h-12">
-        <img src="/images/logoBrand.png" height="200px" alt="logo" />
+        <Link href="/">
+          <a>
+            <img src="/images/logoBrand.png" height="200px" alt="logo" />
+          </a>
+        </Link>
       </div>
       <div className="block lg:hidden">
         <button
@@ -33,15 +43,17 @@ const HomePageNavbar: FunctionComponent<{}> = () => {
         w-full block  lg:flex lg:items-center lg:w-auto c-Navbar-menu`}
       >
         <div className="text-sm lg:flex-grow">
-          <Link href="auth/login">
+          <Link href={login}>
             <a className="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-white mr-4">
               Login
             </a>
           </Link>
         </div>
         <div>
-          <Link href="auth/signup">
-            <a className="inline-block bg-red-400 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-white hover:bg-red-500 mt-4 lg:mt-0 c-Navbar-signup">
+          <Link href={signup}>
+            <a
+              className="inline-block bg-red-400 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-white hover:bg-red-500 mt-4 lg:mt-0 c-Navbar-signup"
+            >
               Create Event
             </a>
           </Link>
