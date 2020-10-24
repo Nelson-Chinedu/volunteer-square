@@ -43,7 +43,7 @@ const EventCategory: FunctionComponent<Props> = ({
   if (!data || loading) {
     return (
       <>
-        <h2 className="md:text-4xl text-2xl md:ml-6 ml-4 my-4 c-Events-container">{headline}</h2>
+        <h2 className="md:text-4xl text-xl md:ml-6 ml-4 my-4 text-green-500 c-Events-container">{headline}</h2>
         <div className="mb-8">
           <div className="md:flex md:justify-around md:items-center w-full">
             <LazyLoad
