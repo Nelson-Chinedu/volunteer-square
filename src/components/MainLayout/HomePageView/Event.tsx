@@ -63,7 +63,7 @@ const Event: FunctionComponent<{}> = () => {
       </div>
       <div className="bg-gray-100">
         <div className="container mx-auto flex flex-col md:flex-row py-8 c-Events-container">
-          <div className="md:mr-32">
+          <div className="md:mr-32 md:w-2/4">
             <img src="/images/dummy.jpeg" width="600" />
             <div className="md:mt-6 mt-6 mb-12 md:mb-0">
               <h2 className="text-lg font-semibold">Details</h2>
