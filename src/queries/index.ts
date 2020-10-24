@@ -93,3 +93,23 @@ export const GET_PROFILE = gql`
     }
   }
 `;
+
+export const CREATE_CONTACT = gql`
+  mutation(
+    $eventId: String!
+    $name: String!
+    $address: String!
+    $telephone: String!
+    ) {
+    public {
+      createContact(
+        eventId: $eventId
+        name: $name
+        address: $address
+        telephone: $telephone
+        ) {
+        message
+      }
+    }
+  }
+`;

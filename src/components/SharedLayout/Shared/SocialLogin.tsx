@@ -1,25 +1,22 @@
 import React, { FunctionComponent } from 'react';
-import { Row, Col } from 'antd';
-import { GoogleOutlined, FacebookOutlined } from '@ant-design/icons';
 
-const SocialLogin: FunctionComponent<{}> = () => {
+import Button from 'src/components/SharedLayout/Shared/Button';
+
+type Props = {
+  children:any;
+};
+
+const SocialLogin: FunctionComponent<Props> = ({children}) => {
+
   return (
-    <Row
-      gutter={[16, 16]}
-      justify="space-between"
-      className="c-loginForm-social"
-    >
-      <Col span={10} className="border border-gray text-center">
-        <div className="flex items-center justify-center">
-          <GoogleOutlined className="mr-2" /> Sign In With Google
-        </div>
-      </Col>
-      <Col span={10} className="border border-gray text-center">
-        <div className="flex items-center justify-center">
-          <FacebookOutlined className="mr-2" /> Sign In With Facebook
-        </div>
-      </Col>
-    </Row>
+    <>
+      <Button
+        type="button"
+        className="flex justify-center w-full border border-gray p-3 mb-3 items-center"
+      >
+        {children}
+      </Button>
+    </>
   );
 };
 

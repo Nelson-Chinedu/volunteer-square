@@ -13,6 +13,8 @@ type Props = {
   headline: string | string[];
   name?: string;
   title?: string;
+  date?: string;
+  time?: string;
   category?: string | string[];
   seeAll: boolean;
 };
@@ -41,9 +43,9 @@ const EventCategory: FunctionComponent<Props> = ({
   if (!data || loading) {
     return (
       <>
-        <h2 className="text-4xl ml-12 mb-4 c-Events-container">{headline}</h2>
-        <div className="flex container mx-auto justify-around c-Events-container mb-8">
-          <div className="flex justify-around items-center w-full">
+        <h2 className="md:text-4xl text-2xl md:ml-6 ml-4 my-4 c-Events-container">{headline}</h2>
+        <div className="mb-8">
+          <div className="md:flex md:justify-around md:items-center w-full">
             <LazyLoad
               active={true}
               shape="square"
@@ -94,8 +96,8 @@ const EventCategory: FunctionComponent<Props> = ({
 
   return (
     <div className="container mx-auto c-Events-container">
-      <div className="container mx-auto flex items-center justify-between c-Events-container">
-        <h2 className="text-4xl">{headline}</h2>
+      <div className="container mx-auto flex items-center justify-between mt-8 md:mt-0 c-Events-container">
+        <h2 className="md:text-4xl text-xl text-green-500">{headline}</h2>
         {seeAll ? (
           <Link href="/find/[event]" as={route}>
             <a className="mr-8">See all</a>
@@ -106,11 +108,11 @@ const EventCategory: FunctionComponent<Props> = ({
       </div>
       <div className="box-border mt-4">
         {events.map((event: Props) => {
-          const { id, name } = event;
+          const { id, name, date, time } = event;
           return (
             <GridContainer gutter={[8, 48]} key={id}>
               <div>
-                <CardContainer title={name} id={id}>
+                <CardContainer title={name} date={`${date} ${time}`} id={id}>
                   <Link href="/event/[event]" as={`/event/${id}`}>
                     <a className="block bg-red-400 w-full py-2 mt-4 text-white hover:text-white hover:bg-red-500">
                       View Event

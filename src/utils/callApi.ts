@@ -2,7 +2,7 @@ import {
   CallApiType,
   ICallApiParameters,
   IResponseData,
-} from 'src/interface/CallApi';
+} from 'src/type/CallApi';
 import store from 'store';
 
 const callApi: CallApiType = async ({

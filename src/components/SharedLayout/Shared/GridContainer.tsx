@@ -11,7 +11,7 @@ const GridContainer: FunctionComponent<Props> = ({ gutter, children }) => {
     <>
       <Row
         gutter={gutter}
-        className="inline-flex items-center justify-center w-1/4 "
+        className="md:inline-flex items-center md:justify-center md:w-1/4 flex flex-col w-full"
       >
         {children}
       </Row>

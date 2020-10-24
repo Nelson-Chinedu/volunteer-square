@@ -28,7 +28,7 @@ const locationOptions = [
 
 const EventSearch: FunctionComponent<{}> = () => {
   return (
-    <div className="c-eventSearch">
+    <div className="hidden md:block c-eventSearch">
       <div className="c-eventSearch-select">
         <div className="w-full mr-2">
           <label htmlFor="">What</label>

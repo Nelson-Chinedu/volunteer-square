@@ -5,32 +5,47 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import 'antd/dist/antd.css';
 
-import '../styles/_Index.scss';
-import '../styles/_Navbar.scss';
-import '../styles/_HeroSection.scss';
-import '../styles/_EventSearch.scss';
-import '../styles/_Events.scss';
-import '../styles/_CardContainer.scss';
-import '../styles/_LoginForm.scss';
-import '../styles/_Input.scss';
-import '../styles/_Button.scss';
-import '../styles/_SignupForm.scss';
-import '../styles/_DesktopSidebar.scss';
-import '../styles/_DashboardNavbar.scss';
-import '../styles/_DashboardView.scss';
-import '../styles/_StatisticCard.scss';
-import '../styles/_CreateEventForm.scss';
-import '../styles/_CreateEventView.scss';
-import '../styles/_ProfileView.scss';
-import '../styles/_ProfileForm.scss';
-import '../styles/_VerifyEmail.scss';
+import '../styles/pages.scss';
+
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  concat,
+  ApolloLink,
+  HttpLink,
+} from '@apollo/react-hooks';
+import store from 'store';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  const httpLink = new HttpLink({ uri: `${process.env.API_URL}/graphql` });
+  const token = store.get('__cnt');
+
+  const authMiddleware = new ApolloLink((operation, forward) => {
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    });
+
+    return forward(operation);
+  });
+
+  const client = new ApolloClient({
+    uri: `${process.env.API_URL}/graphql`,
+    cache: new InMemoryCache(),
+    link: concat(authMiddleware, httpLink),
+  });
+
+  return (
+    <ApolloProvider client={client}>
+      <Component {...pageProps} />
+    </ApolloProvider>
+  );
 }
 
 export default MyApp;

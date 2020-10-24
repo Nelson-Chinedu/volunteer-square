@@ -60,24 +60,25 @@ const ProfileForm: FunctionComponent<{}> = () => {
             },
           },
         } = userData;
-        Snackbar('Message', `${message}`);
+        Snackbar('Message', `${message}`, '#000', '#68d391');
       } else {
-        Snackbar('Message', 'An error occured');
+        Snackbar('Message', 'An error occured', '#000', '#fc8181');
       }
     } catch (err) {
-      Snackbar('Message', 'An error occured');
+      Snackbar('Message', 'An error occured', '#000', '#fc8181');
     }
   };
 
   const formik = useFormik({
     initialValues: {
-      firstname: '',
-      lastname: '',
-      phoneNumber: '',
-      city: '',
-      country: '',
+      firstname: userFirstname ? userFirstname : '',
+      lastname: userLastname ? userLastname : '',
+      phoneNumber: userPhoneNumber ? userPhoneNumber : '',
+      city: userCity ? userCity : '',
+      country: userCountry ? userCountry : '',
     },
     onSubmit: _handleProfile,
+    enableReinitialize: true,
     validationSchema,
   });
 
@@ -102,61 +103,68 @@ const ProfileForm: FunctionComponent<{}> = () => {
             label="Firstname"
             placeholder="Enter Firstname"
             name="firstname"
-            value={userFirstname || firstname}
+            value={firstname}
             onChange={handleChange}
             onBlur={handleBlur}
             type="text"
             size="large"
-            error={userFirstname ? null : errors.firstname}
+            error={errors.firstname}
           />
           <InputForm
             label="Lastname"
             placeholder="Enter Lastname"
             name="lastname"
-            value={userLastname || lastname}
+            value={lastname}
             onChange={handleChange}
             onBlur={handleBlur}
             type="text"
             size="large"
-            error={userLastname ? null : errors.lastname}
+            error={errors.lastname}
           />
         </div>
         <InputForm
           label="City"
           placeholder="Enter City"
           name="city"
-          value={userCity || city}
+          value={city}
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
           size="large"
-          error={userCity ? null : errors.city}
+          error={errors.city}
         />
         <InputForm
           label="Country"
           placeholder="Enter Country"
           name="country"
-          value={userCountry || country}
+          value={country}
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
           size="large"
-          error={userCountry ? null : errors.country}
+          error={errors.country}
         />
         <InputForm
           label="Phone Number"
           placeholder="Enter Phone Number"
           name="phoneNumber"
-          value={userPhoneNumber || phoneNumber}
+          value={phoneNumber}
           onChange={handleChange}
           onBlur={handleBlur}
           type="tel"
           size="large"
-          error={userPhoneNumber ? null : errors.phoneNumber}
+          error={errors.phoneNumber}
         />
         <Button
           type="submit"
-          disabled={isSubmitting}
+          disabled={
+            isSubmitting ||
+            !firstname ||
+            !lastname ||
+            !city ||
+            !country ||
+            !phoneNumber
+          }
           className="w-full text-white p-3 mt-6 mb-2"
           filled={true}
         >

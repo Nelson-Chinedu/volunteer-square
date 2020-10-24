@@ -17,7 +17,7 @@ const LazyLoad: FunctionComponent<Props> = ({
   width,
 }) => {
   return (
-    <div>
+    <div className="mb-8 md:mb-0 c-LazyLoad">
       <Skeleton.Avatar
         style={{ width, height }}
         active={active}

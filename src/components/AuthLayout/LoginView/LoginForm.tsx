@@ -1,8 +1,14 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Divider, Spin, Alert } from 'antd';
-import { LockOutlined, MailOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Divider, Spin } from 'antd';
+import {
+  LockOutlined,
+  MailOutlined,
+  LoadingOutlined,
+  GoogleOutlined,
+  FacebookOutlined
+} from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import store from 'store';
@@ -12,7 +18,7 @@ import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
-import callApi from 'src/lib/callApi';
+import callApi from 'src/utils/callApi';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -23,8 +29,6 @@ const validationSchema = yup.object().shape({
 });
 
 const LoginForm: FunctionComponent<{}> = () => {
-  const [responseMessage, setResponseMessage] = useState('');
-  const [responseStatus, setResponseStatus] = useState(null);
   const router = useRouter();
 
   const _handleLogin = async () => {
@@ -40,20 +44,14 @@ const LoginForm: FunctionComponent<{}> = () => {
     if (response) {
       const { status, message, payload } = response;
       if (status !== 200) {
-        setResponseMessage(message);
-        setResponseStatus(status);
+        Snackbar('Message', message, '#000', '#fc8181');
       } else {
         store.set('__cnt', payload.token);
-        Snackbar('Message', 'Login Successfully');
+        Snackbar('Message', 'Login Successfully', '#000', '#68d391');
         resetForm();
         router.push('/app/dashboard');
       }
     }
-  };
-
-  const _handleClose = () => {
-    setResponseMessage('');
-    setResponseStatus(null);
   };
 
   const formik = useFormik({
@@ -76,20 +74,8 @@ const LoginForm: FunctionComponent<{}> = () => {
   } = formik;
 
   return (
-    <div className="my-5 w-2/5 m-auto c-loginForm">
+    <div className="my-5 md:w-5/12 w-11/12 m-auto c-loginForm">
       <form onSubmit={handleSubmit} className="c-loginForm-container">
-        {responseMessage ? (
-          <Alert
-            message={responseMessage}
-            type={responseStatus !== 200 ? 'error' : 'success'}
-            showIcon
-            closable
-            onClose={_handleClose}
-            className="mb-4"
-          />
-        ) : (
-          ''
-        )}
         <InputForm
           label="Email Address"
           placeholder="Enter Email Address"
@@ -132,7 +118,14 @@ const LoginForm: FunctionComponent<{}> = () => {
           )}
         </Button>
         <Divider>or</Divider>
-        <SocialLogin />
+        <>
+          <SocialLogin>
+            <GoogleOutlined className="mr-2" /> Signin with Google
+          </SocialLogin>
+          <SocialLogin>
+            <FacebookOutlined className="mr-2"/> Signin with Facebook
+          </SocialLogin>
+        </>
         <Link href="/auth/signup">
           <p className="pt-4">
             New user?

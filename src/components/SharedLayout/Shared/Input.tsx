@@ -25,6 +25,7 @@ type Props = {
   ) => void;
   value: any;
   error?: string;
+  autoSize?: object;
 };
 
 const InputForm: FunctionComponent<Props> = ({
@@ -39,12 +40,13 @@ const InputForm: FunctionComponent<Props> = ({
   onChange,
   value,
   error,
+  autoSize
 }) => {
   if (type === 'textarea') {
     return (
       <div>
         <label htmlFor={label}>{label}</label>
-        <textarea
+        <Input.TextArea
           placeholder={placeholder}
           id={label}
           className={className}
@@ -52,10 +54,30 @@ const InputForm: FunctionComponent<Props> = ({
           onBlur={onBlur}
           value={value}
           name={name}
+          autoSize={autoSize}
         />
         <p className="text-red-400">{error}</p>
       </div>
     );
+  }
+  if (type === 'password') {
+    return (
+      <div className="mb-4">
+      <label htmlFor={label}>{label} </label>
+      <Input.Password
+        size={size}
+        name={name}
+        placeholder={placeholder}
+        id={label}
+        className={className}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+        prefix={prefix}
+      />
+      <p className="text-red-400">{error}</p>
+    </div>
+    )
   }
   return (
     <div className="mb-4">
