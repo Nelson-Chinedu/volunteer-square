@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Breadcrumb } from 'antd';
@@ -11,6 +11,8 @@ import DashboardNavbar from 'src/components/SharedLayout/Navbar/DashboardNavbar'
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 const Profile: FunctionComponent<{}> = () => {
+  const [openSidebar,setOpenSidebar] = useState(false);
+  const [closeSidebar, setCloseSidebar] = useState(false);
   const router = useRouter();
 
   const storageDetails = store.get('__cnt');
@@ -25,11 +27,26 @@ const Profile: FunctionComponent<{}> = () => {
       );
     }
   }, []);
+
+  const _handleCloseSidebar = () => {
+    setCloseSidebar(true);
+    setOpenSidebar(false);
+  };
+
+  const _handleOpenSidebar = () => {
+    setOpenSidebar(true);
+    setCloseSidebar(false);
+  };
+
   return (
     <div className="flex">
-      <DesktopSidebar />
+      <DesktopSidebar
+        handleCloseSidebar={_handleCloseSidebar}
+        closeSidebar={closeSidebar}
+        openSidebar={openSidebar}
+      />
       <div className="c-DashboardView-content w-full h-screen">
-        <DashboardNavbar />
+        <DashboardNavbar handleOpenSidebar={_handleOpenSidebar} />
         <div className="py-12 mt-20 c-profileView-breadcrumb">
           <Breadcrumb separator="">
             <Breadcrumb.Item>

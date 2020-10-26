@@ -1,6 +1,9 @@
 .c-profileView-breadcrumb {
   padding-left: 30px;
   margin-left: 25%;
+  @media (max-width: 640px) {
+    margin-left: 0%;
+  }
   .c-profileView-breadcrumb-menu {
     color: #666666;
     font-family: 'Poppins', sans-serif;

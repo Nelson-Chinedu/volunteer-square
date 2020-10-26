@@ -7,12 +7,20 @@ import {
   UserOutlined,
   PlusOutlined,
   EyeOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import store from 'store';
+import classnames from 'classnames';
 
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
-const DesktopSidebar: FunctionComponent<{}> = () => {
+type Props = {
+  handleCloseSidebar: () => void;
+  closeSidebar: boolean;
+  openSidebar: boolean;
+};
+
+const DesktopSidebar: FunctionComponent<Props> = ({handleCloseSidebar, closeSidebar, openSidebar}) => {
   const router = useRouter();
 
   const _handleLogout = () => {
@@ -21,10 +29,12 @@ const DesktopSidebar: FunctionComponent<{}> = () => {
     router.push('/');
   };
 
+  const mainClassname = classnames(`${closeSidebar ? 'hidden':'block'} ${openSidebar ? 'block': 'hidden'}`);
   return (
-    <aside className="c-DesktopSidebar h-screen fixed">
-      <div className="c-DesktopSidebar-top bg-white">
+    <aside className={`c-DesktopSidebar h-screen fixed md:block ${mainClassname}`}>
+      <div className="c-DesktopSidebar-top bg-white flex items-center justify-between">
         <img src="/images/logoBrand.png" height="" alt="logo" className="c-logo"/>
+        <CloseOutlined className="cursor-pointer md:hidden md:mr-0 mr-5" onClick={handleCloseSidebar}/>
       </div>
       <div className="c-DesktopSidebar-bottom ">
         <div className="c-DesktopSidebar-bottom-profile">

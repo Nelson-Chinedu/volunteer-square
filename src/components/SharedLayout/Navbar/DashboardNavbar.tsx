@@ -4,12 +4,16 @@ import { MenuOutlined, BellOutlined } from '@ant-design/icons';
 
 import Button from 'src/components/SharedLayout/Shared/Button';
 
-const DashboardNavbar: FunctionComponent<{}> = () => {
+type Props = {
+  handleOpenSidebar: () => void;
+};
+
+const DashboardNavbar: FunctionComponent<Props> = ({handleOpenSidebar}) => {
   return (
     <div
       className="bg-white w-full flex items-center justify-between px-6 fixed z-50 c-DashboardNavbar"
     >
-      <MenuOutlined className="cursor-pointer" />
+      <MenuOutlined className={`cursor-pointer `} onClick={handleOpenSidebar}/>
       <div className="flex items-center">
         <Link href="/app/create-event">
           <a>
@@ -25,7 +29,7 @@ const DashboardNavbar: FunctionComponent<{}> = () => {
         <img
           src="/images/avatar.png"
           alt="profile picture"
-          className="ml-4 c-DashboardNavbar-pic"
+          className="ml-4 md:block hidden c-DashboardNavbar-pic"
         />
       </div>
     </div>

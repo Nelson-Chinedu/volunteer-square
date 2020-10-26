@@ -1,6 +1,10 @@
 .c-DesktopSidebar {
   width: 25%;
   background-color: #2B333E;
+  @media (max-width: 640px) {
+    width: 80%;
+    z-index: 1000;
+  }
   
   .c-DesktopSidebar-top {
     padding: 20px 0px 21px 0px;
@@ -9,8 +13,11 @@
 
     .c-logo {
       height: 180px;
-      margin-top: -72px;
       margin-left: 26px;
+      @media (max-width: 640px) {
+        margin-left: 5px;
+        margin-top: 0px;
+      }
     }
   }
   .c-DesktopSidebar-bottom {

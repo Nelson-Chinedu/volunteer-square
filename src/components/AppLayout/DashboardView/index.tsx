@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Breadcrumb } from 'antd';
 import { useRouter } from 'next/router';
 import store from 'store';
@@ -10,6 +10,9 @@ import DashboardNavbar from 'src/components/SharedLayout/Navbar/DashboardNavbar'
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 const DashboardView: FunctionComponent<{}> = () => {
+  const [openSidebar,setOpenSidebar] = useState(false);
+  const [closeSidebar, setCloseSidebar] = useState(false);
+
   const router = useRouter();
 
   const storageDetails = store.get('__cnt');
@@ -26,11 +29,25 @@ const DashboardView: FunctionComponent<{}> = () => {
     }
   }, []);
 
+  const _handleCloseSidebar = () => {
+    setCloseSidebar(true);
+    setOpenSidebar(false);
+  };
+
+  const _handleOpenSidebar = () => {
+    setOpenSidebar(true);
+    setCloseSidebar(false);
+  }
+
   return (
     <div className="flex">
-      <DesktopSidebar />
+      <DesktopSidebar
+        handleCloseSidebar={_handleCloseSidebar}
+        closeSidebar={closeSidebar}
+        openSidebar={openSidebar}
+      />
       <div className="c-DashboardView-content w-full">
-        <DashboardNavbar />
+        <DashboardNavbar handleOpenSidebar={_handleOpenSidebar} />
         <div className="py-12 mt-20 c-DashboardView-breadcrumb">
           <Breadcrumb separator="">
             <Breadcrumb.Item>

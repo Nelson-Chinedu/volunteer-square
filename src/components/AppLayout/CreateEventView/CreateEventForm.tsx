@@ -126,7 +126,9 @@ const CreateEventForm: FunctionComponent<{}> = () => {
           error={errors.name}
           size="large"
         />
-        <div className="flex justify-between w-full mb-6 c-createEvent-category">
+        <div
+          className="flex flex-col md:flex-row justify-between w-full md:mb-6 c-createEvent-category"
+        >
           <div>
             <label>Category</label>
             <Select
@@ -142,7 +144,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
                 );
               })}
             </Select>
-            <p className="text-red-400">{!eventCategory ? 'Required' : ''}</p>
+            <p className="text-red-400 mb-4 md:mb-0">{!eventCategory ? 'Required' : ''}</p>
           </div>
           <div>
             <label>Location</label>
@@ -159,10 +161,10 @@ const CreateEventForm: FunctionComponent<{}> = () => {
                 );
               })}
             </Select>
-            <p className="text-red-400">{!eventLocation ? 'Required' : ''}</p>
+            <p className="text-red-400 mb-4 md:mb-0">{!eventLocation ? 'Required' : ''}</p>
           </div>
         </div>
-        <div className="flex justify-between w-full mb-6 c-createEvent-category">
+        <div className="flex flex-col md:flex-row justify-between w-full mb-6 c-createEvent-category">
           <div>
             <label htmlFor="eventDate">Event Date</label>
             <DatePicker
@@ -171,7 +173,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
               size="large"
               onChange={_handleDateSelection}
             />
-            <p className="text-red-400">{!eventDate ? 'Required' : ''}</p>
+            <p className="text-red-400 mb-4 md:mb-0">{!eventDate ? 'Required' : ''}</p>
           </div>
           <div>
             <label htmlFor="startTime">Start Time</label>

@@ -98,7 +98,7 @@ const ProfileForm: FunctionComponent<{}> = () => {
         className=" c-profileForm-container"
         method="POST"
       >
-        <div className="flex justify-between w-full c-profileForm-fullname">
+        <div className="flex flex-col md:flex-row justify-between w-full c-profileForm-fullname">
           <InputForm
             label="Firstname"
             placeholder="Enter Firstname"
