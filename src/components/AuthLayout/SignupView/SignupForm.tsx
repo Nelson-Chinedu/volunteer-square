@@ -83,7 +83,7 @@ const SignupForm: FunctionComponent<{}> = () => {
   return (
     <div className="my-5 md:w-5/12 w-11/12 m-auto c-loginForm">
       <form onSubmit={handleSubmit} className="c-loginForm-container">
-        <div className="flex justify-between w-full c-signupform-fullname">
+        <div className="flex flex-col md:flex-row justify-between w-full c-signupform-fullname">
           <InputForm
             label="Firstname"
             placeholder="Enter Firstname"
