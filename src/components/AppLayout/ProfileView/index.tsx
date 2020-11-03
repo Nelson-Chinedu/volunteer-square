@@ -11,11 +11,11 @@ import DashboardNavbar from 'src/components/SharedLayout/Navbar/DashboardNavbar'
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 const Profile: FunctionComponent<{}> = () => {
-  const [openSidebar,setOpenSidebar] = useState(false);
-  const [closeSidebar, setCloseSidebar] = useState(false);
+  const [visible, setVisible] = useState(false);
   const router = useRouter();
 
   const storageDetails = store.get('__cnt');
+
   useEffect(() => {
     if (!storageDetails) {
       router.push('/auth/login');
@@ -28,26 +28,23 @@ const Profile: FunctionComponent<{}> = () => {
     }
   }, []);
 
-  const _handleCloseSidebar = () => {
-    setCloseSidebar(true);
-    setOpenSidebar(false);
+  const _showDrawer = () => {
+    setVisible(true);
   };
 
-  const _handleOpenSidebar = () => {
-    setOpenSidebar(true);
-    setCloseSidebar(false);
-  };
+  const _onClose = () => {
+    setVisible(false)
+  }
 
   return (
     <div className="flex">
       <DesktopSidebar
-        handleCloseSidebar={_handleCloseSidebar}
-        closeSidebar={closeSidebar}
-        openSidebar={openSidebar}
+        visible={visible}
+        onClose={_onClose}
       />
       <div className="c-DashboardView-content w-full h-screen">
-        <DashboardNavbar handleOpenSidebar={_handleOpenSidebar} />
-        <div className="py-12 mt-20 c-profileView-breadcrumb">
+        <DashboardNavbar showDrawer={_showDrawer} />
+        <div className="py-8 px-6 md:px-10 mt-20 c-profileView-breadcrumb">
           <Breadcrumb separator="">
             <Breadcrumb.Item>
               <span className="c-profileView-breadcrumb-menu c-profileView-menu-1">

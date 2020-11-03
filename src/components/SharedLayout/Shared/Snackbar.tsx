@@ -10,7 +10,6 @@ export const Snackbar = (
     notification.open({
       message,
       description,
-      duration: 0,
       style: {color, backgroundColor}
     })
   )

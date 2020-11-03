@@ -1,7 +1,5 @@
 .c-DashboardView-content {
   .c-DashboardView-breadcrumb {
-    padding-left: 30px;
-    margin-left: 25%;
     @media (max-width: 640px) {
       margin-left: 0%;
     }
@@ -20,7 +18,6 @@
     }
   }
   .c-DashboardView-content-area {
-    margin-left: 25%;
     @media (max-width: 640px) {
       margin-left: 0%;
     }

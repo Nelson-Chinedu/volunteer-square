@@ -109,7 +109,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
   ];
 
   return (
-    <div className="my-5 w-3/5 m-auto c-createEventForm">
+    <div className="my-5 w-2/5 m-auto c-createEventForm">
       <form
         onSubmit={handleSubmit}
         method="POST"
