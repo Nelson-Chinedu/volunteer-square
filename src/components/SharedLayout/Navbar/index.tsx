@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import Link from 'next/link';
+
 type Props = {
   login: string;
   signup: string;

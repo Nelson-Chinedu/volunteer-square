@@ -20,8 +20,16 @@ import callApi from 'src/utils/callApi';
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 const validationSchema = yup.object().shape({
-  firstname: yup.string().required('Required'),
-  lastname: yup.string().required('Required'),
+  firstname: yup
+    .string()
+    .min(2, 'Firstname Too Short')
+    .max(50, 'Firstname Too Long')
+    .required('Required'),
+  lastname: yup
+    .string()
+    .min(2, 'Lastname Too Short')
+    .max(50, 'Lastname Too Long')
+    .required('Required'),
   email: yup
     .string()
     .email('Enter a valid E-mail Address')
