@@ -40,14 +40,14 @@ const Profile: FunctionComponent<{}> = () => {
     <div className="flex">
       <DesktopSidebar
         visible={visible}
-        onClose={_onClose}
+        onClose={_onClose}c-profileView-breadcrumb-menu c-profileView-menu-1
       />
       <div className="c-DashboardView-content w-full h-screen">
         <DashboardNavbar showDrawer={_showDrawer} />
         <div className="py-8 px-6 md:px-10 mt-20 c-profileView-breadcrumb">
           <Breadcrumb separator="">
             <Breadcrumb.Item>
-              <span className="c-profileView-breadcrumb-menu c-profileView-menu-1">
+              <span className="underline hover:no-underline cursor-pointer c-profileView-breadcrumb-menu c-profileView-menu-1">
                 <Link href="/app/dashboard">
                   <a> Home </a>
                 </Link>

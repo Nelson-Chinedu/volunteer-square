@@ -4,6 +4,7 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import 'antd/dist/antd.css';
+import 'suneditor/dist/css/suneditor.min.css';
 
 import '../styles/pages.scss';
 

@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
 
 import HomePageNavbar from 'src/components/SharedLayout/Navbar';
+import Button from 'src/components/SharedLayout/Shared/Button';
 
 const HeroSection: FunctionComponent<{}> = () => {
   return (
@@ -13,9 +14,11 @@ const HeroSection: FunctionComponent<{}> = () => {
             Put Your Event In Front of Millions
           </h2>
           <Link href="/auth/signup">
-            <a className="bg-red-400 px-8 py-3 md:ml-12 ml-3 rounded text-white">
+            <Button
+              type="button"
+              className="bg-red-400 px-8 py-3 md:ml-12 ml-3 rounded text-white c-GetStarted">
               Get Started
-            </a>
+            </Button>
           </Link>
         </div>
         <div className="hidden md:block">

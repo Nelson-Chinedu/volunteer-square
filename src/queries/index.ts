@@ -113,3 +113,31 @@ export const CREATE_CONTACT = gql`
     }
   }
 `;
+
+export const GET_USER_EVENT = gql`
+query($take: Int!, $skip: Int!){
+  client{
+    getUserEvents(take: $take, skip: $skip){
+      events{
+        id
+        name
+      }
+    }
+  }
+}
+`;
+
+export const GET_EVENT_VOLUNTEERS = gql`
+  query($eventId: String!){
+    client{
+      getEventVolunteers(eventId: $eventId){
+        volunteers{
+          id
+          name
+          address
+          telephone
+        }
+      }
+    }
+  }
+`;
