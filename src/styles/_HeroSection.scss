@@ -12,16 +12,13 @@
   }
 
   .c-heroSection-intro {
-    // width: 50%;
-    // margin-left: 20px;
     h2 {
       font-family: 'Montserrat', sans-serif;
-      // font-weight: 700;
-      // font-size: 40px;
       font-style: normal;
       color: #fff;
     }
     button{
+      outline: 0px !important;
       &:hover{
         background-color: #f59090;
       }

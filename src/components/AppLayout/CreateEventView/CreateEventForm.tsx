@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState  } from 'react';
 import { Spin, Select, DatePicker, TimePicker } from 'antd';
+import { useRouter } from 'next/router';
 import { LoadingOutlined } from '@ant-design/icons';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
+import SunEditor from 'suneditor-react';
 
 import Input from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
@@ -11,25 +11,97 @@ import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 import { CREATE_EVENT } from 'src/queries';
 
-const validationSchema = yup.object().shape({
-  name: yup.string().required('Required'),
-  description: yup.string().required('Required'),
-});
-
 const CreateEventForm: FunctionComponent<{}> = () => {
+  const router = useRouter();
+  const [eventName, setEventName] = useState('');
   const [eventCategory, setEventCategory] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventTime, setEventTime] = useState('');
+  const [eventRequirement, setEventRequirement] = useState(null);
+  const [eventNameError, setEventNameError] = useState('');
+  const [eventCategoryError, setEventCategoryError] = useState('');
+  const [eventLocationError, setEventLocationError] = useState('');
+  const [eventDateError, setEventDateError] = useState('');
+  const [eventTimeError, setEventTimeError] = useState('');
+
+  const [submitting, setSubmitting] = useState(false);
 
   const [createEvent, { loading }] = useMutation(CREATE_EVENT);
 
-  const _handleCreateEvent = async () => {
+  const _handleEventName = (e: any) => {
+    setEventName(e.target.value);
+  }
+
+  const _handleEventCategory = (value: any) => {
+    setEventCategory(value);
+  };
+
+  const _handleEventLocation = (value: any) => {
+    setEventLocation(value);
+  };
+
+  const _handleTimeSelection = (value: any) => {
+    setEventTime(value);
+  };
+
+  const _handleDateSelection = (value: any) => {
+    setEventDate(value);
+  };
+
+  const _handleRequirement = (content: any) => {
+    setEventRequirement(content);
+  }
+
+
+  const _handleEventNameBlur = (e: any) => {
+    if(!e.target.value){
+      setEventNameError('Required');
+    }else {
+      setEventNameError('');
+    }
+  }
+
+  const _handleLocationBlur = () => {
+    if(!eventLocation){
+      setEventLocationError('Required');
+    }else {
+      setEventLocationError('');
+    }
+  }
+
+  const _handleCategoryBlur = () => {
+    if(!eventCategory){
+      setEventCategoryError('Required');
+    }else {
+      setEventCategoryError('');
+    }
+  }
+
+  const _handleDateBlur = () => {
+    if(!eventDate){
+      setEventDateError('Required');
+    }else {
+      setEventDateError('');
+    }
+  }
+
+  const _handleTimeBlur = () => {
+    if(!eventTime){
+      setEventTimeError('Required');
+    }else {
+      setEventTimeError('');
+    }
+  }
+
+  const _handleCreateEvent = async (e: any) => {
+    e.preventDefault();
+    setSubmitting(true);
     try {
       const userData = await createEvent({
         variables: {
-          name,
-          description,
+          name: eventName,
+          description: eventRequirement,
           category: eventCategory,
           location: eventLocation,
           time: eventTime,
@@ -44,47 +116,13 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             },
           },
         } = userData;
+        setSubmitting(false);
         Snackbar('Message', `${message}`, '#000', '#68d391');
-        resetForm();
+        router.reload();
       }
     } catch (err) {
       Snackbar('Message', 'An error occured', '#000', '#fc8181');
     }
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      description: '',
-    },
-    onSubmit: _handleCreateEvent,
-    validationSchema,
-  });
-
-  const {
-    values: { name, description },
-    isSubmitting,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    resetForm,
-    errors,
-  } = formik;
-
-  const _handleCategorySelection = (value: any) => {
-    setEventCategory(value);
-  };
-
-  const _handleLocationSelection = (value: any) => {
-    setEventLocation(value);
-  };
-
-  const _handleTimeSelection = (value: any) => {
-    setEventTime(value);
-  };
-
-  const _handleDateSelection = (value: any) => {
-    setEventDate(value);
   };
 
   const defaultValue = [
@@ -111,7 +149,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
   return (
     <div className="my-5 w-2/5 m-auto c-createEventForm">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={_handleCreateEvent}
         method="POST"
         className="c-createEventForm-container"
       >
@@ -120,10 +158,10 @@ const CreateEventForm: FunctionComponent<{}> = () => {
           placeholder="Enter Event Name"
           type="text"
           name="name"
-          value={name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.name}
+          value={eventName}
+          onChange={_handleEventName}
+          onBlur={_handleEventNameBlur}
+          error={eventNameError}
           size="large"
         />
         <div
@@ -134,7 +172,8 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             <Select
               className="w-full"
               defaultValue={defaultValue[0].label}
-              onChange={_handleCategorySelection}
+              onChange={_handleEventCategory}
+              onBlur={_handleCategoryBlur}
             >
               {categoryOptions.map((category) => {
                 return (
@@ -144,14 +183,15 @@ const CreateEventForm: FunctionComponent<{}> = () => {
                 );
               })}
             </Select>
-            <p className="text-red-400 mb-4 md:mb-0">{!eventCategory ? 'Required' : ''}</p>
+            <p className="text-red-400 mb-4 md:mb-0">{eventCategoryError}</p>
           </div>
           <div>
             <label>Location</label>
             <Select
               className="w-full"
               defaultValue={defaultValue[1].label}
-              onChange={_handleLocationSelection}
+              onChange={_handleEventLocation}
+              onBlur={_handleLocationBlur}
             >
               {locationOptions.map((location) => {
                 return (
@@ -161,7 +201,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
                 );
               })}
             </Select>
-            <p className="text-red-400 mb-4 md:mb-0">{!eventLocation ? 'Required' : ''}</p>
+            <p className="text-red-400 mb-4 md:mb-0">{eventLocationError}</p>
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-between w-full mb-6 c-createEvent-category">
@@ -172,8 +212,9 @@ const CreateEventForm: FunctionComponent<{}> = () => {
               id="eventDate"
               size="large"
               onChange={_handleDateSelection}
+              onBlur={_handleDateBlur}
             />
-            <p className="text-red-400 mb-4 md:mb-0">{!eventDate ? 'Required' : ''}</p>
+            <p className="text-red-400 mb-4 md:mb-0">{eventDateError}</p>
           </div>
           <div>
             <label htmlFor="startTime">Start Time</label>
@@ -184,38 +225,40 @@ const CreateEventForm: FunctionComponent<{}> = () => {
               className="w-full mt-2"
               size="large"
               onChange={_handleTimeSelection}
+              onBlur={_handleTimeBlur}
             />
-            <p className="text-red-400">{!eventTime ? 'Required' : ''}</p>
+            <p className="text-red-400">{eventTimeError}</p>
           </div>
         </div>
-        <Input
-          label="Event Description"
-          placeholder="Enter Event Description"
-          type="textarea"
-          name="description"
-          value={description}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.description}
-          size="large"
-          className="w-full h-32 resize-none c-eventDescription"
-          autoSize={{minRows: 10, maxRows: 15}}
-        />
+        <p>Event Requirement</p>
+        <SunEditor setOptions={
+          {
+            height: 300,
+            buttonList: [[
+              'bold', 'italic', 'underline', 'subscript', 'superscript', 'list', 'formatBlock'
+            ]],
+            resizingBar: false,
+            customPlugins:[]
+          }}
+            setContents={eventRequirement}
+            onChange={_handleRequirement}
+            placeholder="Enter Event Requirement Here..."
+          />
         <Button
           type="submit"
           disabled={
-            isSubmitting ||
-            !name ||
-            !description ||
+            submitting ||
+            !eventName ||
+            !eventCategory ||
+            !eventLocation ||
             !eventDate ||
             !eventTime ||
-            !eventCategory ||
-            !eventLocation
+            !eventRequirement
           }
           filled={true}
           className="w-full text-white p-3 mt-6 mb-2"
         >
-          {isSubmitting && loading ? (
+          {submitting && loading ? (
             <Spin indicator={<LoadingOutlined className="text-white" />} />
           ) : (
             'Create Event'

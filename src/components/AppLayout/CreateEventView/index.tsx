@@ -48,7 +48,9 @@ const CreateEventView: FunctionComponent<{}> = () => {
         <div className="py-8 px-6 md:px-10 mt-20 c-createEventView-breadcrumb">
           <Breadcrumb separator="">
             <Breadcrumb.Item>
-              <span className="c-createEventView-breadcrumb-menu c-createEventView-menu-1">
+              <span
+                className="underline hover:no-underline cursor-pointer c-createEventView-breadcrumb-menu c-createEventView-menu-1"
+              >
                 <Link href="/app/dashboard">
                   <a> Home </a>
                 </Link>

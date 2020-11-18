@@ -31,9 +31,13 @@
     "react": "^17.0.0",
     "react-apollo": "^3.1.5",
     "react-dom": "^17.0.0",
+    "react-hotjar": "^2.2.1",
     "react-select": "^3.1.0",
     "react-toastify": "^6.0.6",
+    "slate": "^0.59.0",
+    "slate-react": "^0.59.0",
     "store": "^2.0.12",
+    "suneditor-react": "^2.14.4",
     "tailwindcss": "^1.4.6",
     "yup": "^0.28.5"
   },

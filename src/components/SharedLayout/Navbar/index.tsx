@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useState } from 'react';
 import Link from 'next/link';
 
+import Button from 'src/components/SharedLayout/Shared/Button';
+
 type Props = {
   login: string;
   signup: string;
@@ -52,11 +54,12 @@ const HomePageNavbar: FunctionComponent<Props> = ({login, signup}) => {
         </div>
         <div>
           <Link href={signup}>
-            <a
+            <Button
+              type="button"
               className="inline-block bg-red-400 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-white hover:bg-red-500 mt-4 lg:mt-0 c-Navbar-signup"
             >
               Create Event
-            </a>
+            </Button>
           </Link>
         </div>
       </div>

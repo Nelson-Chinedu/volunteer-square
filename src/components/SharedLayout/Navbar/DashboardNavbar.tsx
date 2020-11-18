@@ -6,7 +6,7 @@ import { Menu, Dropdown } from 'antd';
 import { useRouter } from 'next/router';
 
 import Button from 'src/components/SharedLayout/Shared/Button';
-import { Snackbar } from '../Shared/Snackbar';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 type Props = {
   showDrawer: () => void;
@@ -43,26 +43,23 @@ const DashboardNavbar: FunctionComponent<Props> = ({showDrawer}) => {
       className="bg-white w-full flex items-center justify-between px-6 fixed z-50 c-DashboardNavbar"
     >
       <div className="flex items-center">
-        <img src="/images/logoBrand.png" height="" alt="logo" className="c-logo hidden md:block"/>
+        <Link href="/app/dashboard">
+          <a>
+            <img src="/images/logoBrand.png" height="" alt="logo" className="c-logo hidden md:block"/>
+          </a>
+        </Link>
         <MenuOutlined className="block md:hidden" onClick={showDrawer}/>
       </div>
       <div className="flex items-center">
-        <Link href="/app/dashboard">
-          <a className="hidden md:block md:mr-4">
-            Home
-          </a>
-        </Link>
         <Link href="/app/create-event">
-          <a>
-            <Button
-              type="button"
-              className="bg-blue-700 px-6 py-2 rounded text-white"
-            >
-              Create Event
-            </Button>
-          </a>
+          <Button
+            type="button"
+            className="bg-red-500 hover:bg-red-400 border-0 rounded border-white px-6 py-2 text-white c-CreateEvent"
+          >
+            Create Event
+          </Button>
         </Link>
-        <Dropdown overlay={menu} placement="bottomLeft" className="hidden md:flex">
+        <Dropdown overlay={menu} trigger={['click']} placement="bottomLeft" className="hidden md:flex">
           <div className="flex items-center justify-around cursor-pointer ">
             <img
               src="/images/avatar.png"
