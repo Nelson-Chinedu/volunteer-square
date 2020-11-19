@@ -56,7 +56,7 @@ const HomePageNavbar: FunctionComponent<Props> = ({login, signup}) => {
           <Link href={signup}>
             <Button
               type="button"
-              className="inline-block bg-red-400 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-white hover:bg-red-500 mt-4 lg:mt-0 c-Navbar-signup"
+              className="inline-block bg-red-400 text-sm px-4 py-3 mr-4 leading-none border rounded text-white border-white hover:border-transparent hover:text-white hover:bg-red-500 mt-4 lg:mt-0 c-Navbar-signup"
             >
               Create Event
             </Button>

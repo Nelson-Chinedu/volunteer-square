@@ -55,7 +55,7 @@ const Event: FunctionComponent<{}> = () => {
             <p className="items-center flex">
               <EnvironmentOutlined className="mr-2"/>{location}
             </p>
-            <p className="items-center flex">
+            <p className="items-center flex pb-4 md:pb-0">
               <TagOutlined className="mr-2"/>{category}
             </p>
           </div>
