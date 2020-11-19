@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Col, Card } from 'antd';
+// import { Col, Card } from 'antd';
 
 type Props = {
   id: string;
@@ -9,22 +9,17 @@ type Props = {
   children: React.ReactNode;
 };
 
-const CardContainer: FunctionComponent<Props> = ({ children, title, date }) => {
-  const { Meta } = Card;
+const CardContainer: FunctionComponent<Props> = ({ children}) => {
+  // const { Meta } = Card;
 
   return (
-    <>
-      <Col span={6} className="c-col-card">
-        <Card
-          hoverable
-          style={{ width: 250 }}
-          cover={<img src="/images/dummy.jpeg" />}
-        >
-          <Meta className="text-left" title={date} description={title} />
-          {children}
-        </Card>
-      </Col>
-    </>
+    <div className="cursor-pointer hover:shadow-lg border border-gray-400 w-11/12 m-auto mb-8 md:mb-0 hover:translate-y-px transform">
+      {/* <img src="/images/dummy.jpeg" />
+      <div className="w-10/12 m-auto py-6">
+        {children}
+      </div> */}
+      {children}
+    </div>
   );
 };
 
