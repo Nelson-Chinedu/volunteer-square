@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Col, Card } from 'antd';
+// import { Col, Card } from 'antd';
 
 type Props = {
   id: string;
@@ -9,7 +9,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const CardContainer: FunctionComponent<Props> = ({ children, title, date }) => {
+const CardContainer: FunctionComponent<Props> = ({ children}) => {
   // const { Meta } = Card;
 
   return (
