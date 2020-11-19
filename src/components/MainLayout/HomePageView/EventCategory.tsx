@@ -61,7 +61,7 @@ const EventCategory: FunctionComponent<Props> = ({
   if (events.length <= 0) {
     return (
       <div className="mb-8">
-        <h2 className="text-4xl ml-12 mb-4 c-Events-container">{headline}</h2>
+        <h2 className="md:text-4xl text-xl text-green-500 ml-2 c-Events-container">{headline}</h2>
         <h4 className="text-center">No event added</h4>
       </div>
     );
