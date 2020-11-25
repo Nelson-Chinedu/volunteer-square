@@ -11,8 +11,6 @@ import DesktopSidebar from 'src/components/SharedLayout/Sidebar/DeskTopSidebar';
 import DashboardNavbar from 'src/components/SharedLayout/Navbar/DashboardNavbar';
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 import LazyLoad from 'src/components/SharedLayout/Shared/LazyLoad';
-import GridContainer from 'src/components/SharedLayout/Shared/GridContainer';
-import CardContainer from 'src/components/SharedLayout/Shared/CardContainer';
 
 import { GET_USER_EVENT } from 'src/queries';
 
@@ -50,34 +48,10 @@ const DashboardView: FunctionComponent<{}> = () => {
       <>
         <div className="mb-8">
           <div className="md:flex md:justify-around md:items-center w-full">
-            <LazyLoad
-              active={true}
-              shape="square"
-              size="large"
-              width={260}
-              height={250}
-            />
-            <LazyLoad
-              active={true}
-              shape="square"
-              size="large"
-              width={260}
-              height={250}
-            />
-            <LazyLoad
-              active={true}
-              shape="square"
-              size="large"
-              width={260}
-              height={250}
-            />
-            <LazyLoad
-              active={true}
-              shape="square"
-              size="large"
-              width={260}
-              height={250}
-            />
+            <LazyLoad active={true} shape="square" size="large" width={260} height={250} />
+            <LazyLoad active={true} shape="square" size="large" width={260} height={250} />
+            <LazyLoad active={true} shape="square" size="large" width={260} height={250} />
+            <LazyLoad active={true} shape="square" size="large" width={260} height={250} />
           </div>
         </div>
       </>
@@ -122,28 +96,35 @@ const DashboardView: FunctionComponent<{}> = () => {
           </Breadcrumb>
         </div>
         {events ? (
-          <div className="box-border mt-4">
-          {events.map((event: any) => {
-            const { id, name } = event;
-            return (
-              <GridContainer gutter={[8, 48]} key={id}>
-                <div>
-                  <CardContainer title={name} id={id}>
-                    <Link href="/app/event/[event]" as={`/app/event/${id}`}>
-                      <a className="block bg-red-400 w-full py-2 mt-4 text-white hover:text-white hover:bg-red-500">
-                        View Volunteer
-                      </a>
-                    </Link>
-                  </CardContainer>
+          <div className="box-border mt-4 mx-auto c-Events-container ">
+            {events.map((event: any) => {
+              const {id, name} = event;
+              return (
+                <div
+                  className="c-Events-container-card cursor-pointer hover:shadow-lg border border-gray-400 w-1/5 my-6 mx-auto md:my-4 md:mx-4 md:inline-flex hover:translate-y-px transform"
+                  key={id}
+                >
+                  <div>
+                    <img src="/images/dummy.jpeg" />
+                    <div className=" m-auto py-4 mx-4">
+                      <p className="capitalize">{name}</p>
+                      <Link href="/app/event/[event]" as={`/app/event/${id}`}>
+                        <a
+                          className="block bg-red-400 w-full py-2 mt-4 text-center text-white hover:text-white hover:bg-red-500"
+                        >
+                          View Volunteer
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </GridContainer>
-            );
-          })}
-        </div>
+              )
+            })}
+          </div>
         ) : (
-        <div className="w-auto my-12 c-DashboardView-content-area">
-          <EmptyCard />
-        </div>
+          <div className="w-auto my-12 c-DashboardView-content-area">
+            <EmptyCard />
+          </div>
         )
         }
       </div>
