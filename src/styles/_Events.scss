@@ -1,5 +1,12 @@
 .c-Events-container {
   width: 96%;
+  .c-Events-container-card{
+    width: 22%;
+    margin-right: 20px;
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+  }
   @media (max-width: 640px) {
     width: 90%;
   }
