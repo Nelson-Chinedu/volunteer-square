@@ -95,7 +95,7 @@ const DashboardView: FunctionComponent<{}> = () => {
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        {events ? (
+        {events.length > 1 ? (
           <div className="box-border mt-4 mx-auto c-Events-container ">
             {events.map((event: any) => {
               const {id, name} = event;

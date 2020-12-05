@@ -16,7 +16,7 @@ const EmptyCard: FunctionComponent<{}> = () => {
         <a>
           <Button
             type="button"
-            className="bg-blue-700 px-6 py-2 rounded text-white"
+            className="bg-red-500 hover:bg-red-400 px-6 py-2 rounded text-white"
           >
             Create Event
           </Button>
