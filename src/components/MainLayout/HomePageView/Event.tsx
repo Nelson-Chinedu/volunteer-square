@@ -40,7 +40,10 @@ const Event: FunctionComponent<{}> = () => {
   const {
     getEvent: { name, location, category, date, time, description },
   } = data.public;
-
+console.log(description)
+function createMarkup() {
+  return {__html: description}
+}
   return (
     <div>
       <div className="bg-white border-b border-gray-400 md:p-4">
@@ -67,7 +70,7 @@ const Event: FunctionComponent<{}> = () => {
             <img src="/images/dummy.jpeg" width="600" />
             <div className="md:mt-6 mt-6 mb-12 md:mb-0">
               <h2 className="text-lg font-semibold">Details</h2>
-              <p>{description}</p>
+              <div dangerouslySetInnerHTML={{__html: description}}></div>
             </div>
           </div>
           <div>
