@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 import { ClockCircleOutlined, EnvironmentOutlined, TagOutlined } from '@ant-design/icons';
+import {convertFromRaw} from 'draft-js';
+import {stateToHTML} from 'draft-js-export-html';
 
 import { GET_EVENT } from 'src/queries';
 
@@ -40,10 +42,7 @@ const Event: FunctionComponent<{}> = () => {
   const {
     getEvent: { name, location, category, date, time, description },
   } = data.public;
-console.log(description)
-function createMarkup() {
-  return {__html: description}
-}
+  const htmlString = stateToHTML(convertFromRaw(JSON.parse(description)));
   return (
     <div>
       <div className="bg-white border-b border-gray-400 md:p-4">
@@ -70,7 +69,7 @@ function createMarkup() {
             <img src="/images/dummy.jpeg" width="600" />
             <div className="md:mt-6 mt-6 mb-12 md:mb-0">
               <h2 className="text-lg font-semibold">Details</h2>
-              <div dangerouslySetInnerHTML={{__html: description}}></div>
+              <div dangerouslySetInnerHTML={{__html: htmlString}}/>
             </div>
           </div>
           <div>

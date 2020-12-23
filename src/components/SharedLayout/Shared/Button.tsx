@@ -9,6 +9,7 @@ type Props = {
   className: string;
   disabled?: boolean;
   filled?: boolean;
+  handleClick?: () => void;
 };
 
 const Button: FunctionComponent<Props> = ({
@@ -17,6 +18,7 @@ const Button: FunctionComponent<Props> = ({
   children,
   disabled,
   filled,
+  handleClick,
   ...others
 }) => {
   const mainClassNames = classnames('rounded cursor-pointer', {
@@ -29,6 +31,7 @@ const Button: FunctionComponent<Props> = ({
         type={type}
         className={`${mainClassNames} ${className}`}
         disabled={disabled}
+        onClick={handleClick}
         {...others}
       >
         {children}

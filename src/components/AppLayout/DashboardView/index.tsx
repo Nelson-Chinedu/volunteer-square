@@ -21,6 +21,10 @@ const DashboardView: FunctionComponent<{}> = () => {
   const router = useRouter();
 
   const storageDetails = store.get('__cnt');
+  const {token} = router.query;
+  if (token){
+    store.set('__cnt', `${token}`);
+  }
 
   useEffect(() => {
     if (!storageDetails) {
@@ -58,9 +62,9 @@ const DashboardView: FunctionComponent<{}> = () => {
     );
   }
 
-  const {
-    getUserEvents: { events },
-  } = data.client;
+  const userEvent = data.client.getUserEvents
+    ? data.client.getUserEvents.events
+    : [];
 
   const _showDrawer = () => {
     setVisible(true);
@@ -95,9 +99,9 @@ const DashboardView: FunctionComponent<{}> = () => {
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        {events.length > 1 ? (
+        {userEvent.length > 1 ? (
           <div className="box-border mt-4 mx-auto c-Events-container ">
-            {events.map((event: any) => {
+            {userEvent.map((event: any) => {
               const {id, name} = event;
               return (
                 <div

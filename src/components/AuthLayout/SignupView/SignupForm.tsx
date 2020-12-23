@@ -6,8 +6,6 @@ import {
   MailOutlined,
   UserOutlined,
   LoadingOutlined,
-  GoogleOutlined,
-  FacebookOutlined,
 } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -15,9 +13,10 @@ import * as yup from 'yup';
 import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
+import Icon from 'src/components/SharedLayout/Shared/SocialIcon';
+import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 import callApi from 'src/utils/callApi';
-import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
 
 const validationSchema = yup.object().shape({
   firstname: yup
@@ -67,6 +66,10 @@ const SignupForm: FunctionComponent<{}> = () => {
     }
   };
 
+  const _handleGoogle = () => {
+    window.location.href = `${process.env.API_URL}/google`;
+  }
+
   const formik = useFormik({
     initialValues: {
       firstname: '',
@@ -91,6 +94,19 @@ const SignupForm: FunctionComponent<{}> = () => {
   return (
     <div className="my-5 md:w-5/12 w-11/12 m-auto c-loginForm">
       <form onSubmit={handleSubmit} className="c-loginForm-container">
+        <div className="md:flex justify-between">
+          <div className="w-full md:w-56">
+            <SocialLogin handleGoogle={_handleGoogle}>
+              <Icon path="/images/google.svg" classname="w-4 mr-2" /> Sign up with Google
+            </SocialLogin>
+          </div>
+          <div className="w-full md:w-56">
+            <SocialLogin>
+              <Icon path="/images/facebook.svg" classname="w-4 mr-2" /> Sign up with Facebook
+            </SocialLogin>
+          </div>
+        </div>
+        <Divider>OR</Divider>
         <div className="flex flex-col md:flex-row justify-between w-full c-signupform-fullname">
           <InputForm
             label="Firstname"
@@ -161,17 +177,8 @@ const SignupForm: FunctionComponent<{}> = () => {
             'Sign Up'
           )}
         </Button>
-        <Divider>or</Divider>
-        <>
-          <SocialLogin>
-            <GoogleOutlined className="mr-2" /> Signup with Google
-          </SocialLogin>
-          <SocialLogin>
-            <FacebookOutlined className="mr-2"/> Signup with Facebook
-          </SocialLogin>
-        </>
         <Link href="/auth/login">
-          <p className="pt-4">
+          <p className="pt-4 text-center">
             Already have an account?
             <a className="pl-1 text-blue-700 underline hover:no-underline">
               Sign In
