@@ -6,8 +6,6 @@ import {
   LockOutlined,
   MailOutlined,
   LoadingOutlined,
-  GoogleOutlined,
-  FacebookOutlined
 } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -17,6 +15,7 @@ import InputForm from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
 import SocialLogin from 'src/components/SharedLayout/Shared/SocialLogin';
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
+import Icon from 'src/components/SharedLayout/Shared/SocialIcon';
 
 import callApi from 'src/utils/callApi';
 
@@ -54,6 +53,10 @@ const LoginForm: FunctionComponent<{}> = () => {
     }
   };
 
+  const _handleGoogle = () => {
+    window.location.href = `${process.env.API_URL}/google`;
+  }
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -76,66 +79,70 @@ const LoginForm: FunctionComponent<{}> = () => {
   return (
     <div className="my-5 md:w-5/12 w-11/12 m-auto c-loginForm">
       <form onSubmit={handleSubmit} className="c-loginForm-container">
-        <InputForm
-          label="Email Address"
-          placeholder="Enter Email Address"
-          type="email"
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.email}
-          size="large"
-          prefix={<MailOutlined />}
-        />
-        <InputForm
-          label="Password"
-          placeholder="Enter Password"
-          type="password"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.password}
-          size="large"
-          prefix={<LockOutlined />}
-        />
-        <Link href="#">
-          <a className="underline hover:no-underline block text-right">
-            Forgot Password?
+      <div className="md:flex justify-between">
+        <div className="w-full md:w-56">
+          <SocialLogin handleGoogle={_handleGoogle}>
+            <Icon path="/images/google.svg" classname="w-4 mr-2" /> Sign In with Google
+          </SocialLogin>
+        </div>
+        <div className="w-full md:w-56">
+          <SocialLogin>
+            <Icon path="/images/facebook.svg" classname="w-4 mr-2" /> Sign In with Facebook
+          </SocialLogin>
+        </div>
+      </div>
+      <Divider>OR</Divider>
+      <InputForm
+        label="Email Address"
+        placeholder="Enter Email Address"
+        type="email"
+        name="email"
+        value={values.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={errors.email}
+        size="large"
+        prefix={<MailOutlined />}
+      />
+      <InputForm
+        label="Password"
+        placeholder="Enter Password"
+        type="password"
+        name="password"
+        value={values.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={errors.password}
+        size="large"
+        prefix={<LockOutlined />}
+      />
+      <Link href="#">
+        <a className="underline hover:no-underline block text-right">
+          Forgot Password?
+        </a>
+      </Link>
+      <Button
+        type="submit"
+        disabled={isSubmitting || !values.email || !values.password}
+        filled={true}
+        className="w-full text-white p-3 mt-6 mb-2"
+      >
+        {isSubmitting ? (
+          <Spin indicator={<LoadingOutlined className="text-white" />} />
+        ) : (
+          'Sign In'
+        )}
+      </Button>
+      <Link href="/auth/signup">
+        <p className="pt-4 text-center">
+          New user?
+          <a className="pl-1 text-blue-700 underline hover:no-underline">
+            Register for free
           </a>
-        </Link>
-        <Button
-          type="submit"
-          disabled={isSubmitting || !values.email || !values.password}
-          filled={true}
-          className="w-full text-white p-3 mt-6 mb-2"
-        >
-          {isSubmitting ? (
-            <Spin indicator={<LoadingOutlined className="text-white" />} />
-          ) : (
-            'Sign In'
-          )}
-        </Button>
-        <Divider>or</Divider>
-        <>
-          <SocialLogin>
-            <GoogleOutlined className="mr-2" /> Signin with Google
-          </SocialLogin>
-          <SocialLogin>
-            <FacebookOutlined className="mr-2"/> Signin with Facebook
-          </SocialLogin>
-        </>
-        <Link href="/auth/signup">
-          <p className="pt-4">
-            New user?
-            <a className="pl-1 text-blue-700 underline hover:no-underline">
-              Register for free
-            </a>
-          </p>
-        </Link>
-      </form>
-    </div>
+        </p>
+      </Link>
+    </form>
+  </div>
   );
 };
 
