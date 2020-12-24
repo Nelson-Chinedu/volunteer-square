@@ -3,15 +3,19 @@ import { Spin, Select, DatePicker, TimePicker } from 'antd';
 import { useRouter } from 'next/router';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useMutation } from '@apollo/react-hooks';
+import { EditorState, convertToRaw, ContentState} from 'draft-js';
 
 import Input from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
+import RichEditor  from 'src/components/SharedLayout/Shared/RichEditor';
+
 
 import { CREATE_EVENT } from 'src/queries';
 
 const CreateEventForm: FunctionComponent<{}> = () => {
   const router = useRouter();
+  const [editorState, setEditorState] = useState(EditorState.createWithContent(ContentState.createFromText('')))
   const [eventName, setEventName] = useState('');
   const [eventCategory, setEventCategory] = useState('');
   const [eventLocation, setEventLocation] = useState('');
@@ -90,10 +94,12 @@ const CreateEventForm: FunctionComponent<{}> = () => {
   const _handleCreateEvent = async (e: any) => {
     e.preventDefault();
     setSubmitting(true);
+    const rawEditorState = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
     try {
       const userData = await createEvent({
         variables: {
           name: eventName,
+          description: rawEditorState,
           category: eventCategory,
           location: eventLocation,
           time: eventTime,
@@ -222,6 +228,13 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             <p className="text-red-400">{eventTimeError}</p>
           </div>
         </div>
+        <p>Event Requirement</p>
+        <div>
+          <RichEditor
+            editorState={editorState}
+            onChange={setEditorState}
+          />
+        </div>
         <Button
           type="submit"
           disabled={
@@ -230,7 +243,8 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             !eventCategory ||
             !eventLocation ||
             !eventDate ||
-            !eventTime
+            !eventTime ||
+            !editorState.getCurrentContent().hasText()
           }
           filled={true}
           className="w-full text-white p-3 mt-6 mb-2"
