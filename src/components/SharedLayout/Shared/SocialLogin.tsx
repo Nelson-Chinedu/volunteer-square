@@ -4,16 +4,16 @@ import Button from 'src/components/SharedLayout/Shared/Button';
 
 type Props = {
   children:any;
-  handleGoogle?: () => void
+  handleSocialAuth?: () => void
 };
 
-const SocialLogin: FunctionComponent<Props> = ({children, handleGoogle}) => {
+const SocialLogin: FunctionComponent<Props> = ({children, handleSocialAuth}) => {
   return (
     <>
       <Button
         type="button"
         className="flex justify-center w-full  border border-gray p-3 mb-3 items-center"
-        handleClick={handleGoogle}
+        handleClick={handleSocialAuth}
       >
         {children}
       </Button>

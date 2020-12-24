@@ -57,6 +57,10 @@ const LoginForm: FunctionComponent<{}> = () => {
     window.location.href = `${process.env.API_URL}/google`;
   }
 
+  const _handleFacebook = () => {
+    window.location.href = `${process.env.API_URL}/auth/facebook`;
+  }
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -81,12 +85,12 @@ const LoginForm: FunctionComponent<{}> = () => {
       <form onSubmit={handleSubmit} className="c-loginForm-container">
       <div className="md:flex justify-between">
         <div className="w-full md:w-56">
-          <SocialLogin handleGoogle={_handleGoogle}>
+          <SocialLogin handleSocialAuth={_handleGoogle}>
             <Icon path="/images/google.svg" classname="w-4 mr-2" /> Sign In with Google
           </SocialLogin>
         </div>
         <div className="w-full md:w-56">
-          <SocialLogin>
+          <SocialLogin handleSocialAuth={_handleFacebook}>
             <Icon path="/images/facebook.svg" classname="w-4 mr-2" /> Sign In with Facebook
           </SocialLogin>
         </div>
