@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
 import { Breadcrumb } from 'antd';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -14,31 +14,63 @@ import LazyLoad from 'src/components/SharedLayout/Shared/LazyLoad';
 
 import { GET_USER_EVENT } from 'src/queries';
 
+const useLocalStorage = (key: string, initialValue: string) => {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = store.get(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+        return initialValue;
+    }
+  })
+
+  const setValue = (value: any) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      store.set(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return [storedValue, setValue];
+}
+
 const DashboardView: FunctionComponent<{}> = () => {
   const [skip, setSkip] = useState(null);
   const [take, setTake] = useState(null);
   const [visible, setVisible] = useState(false);
   const router = useRouter();
+  const mounted = useRef(null);
 
-  const storageDetails = store.get('__cnt');
   const {token} = router.query;
-  if (token){
-    store.set('__cnt', `${token}`);
-  }
+  const [storedValue, setStoredValue] = useLocalStorage('__cnt', '');
 
   useEffect(() => {
-    if (!storageDetails) {
+    if (token){
+      setStoredValue(token)
+    }
+  },[token])
+
+  useEffect(() => {
+    if (!storedValue && mounted.current) {
       router.push('/auth/login');
       Snackbar(
         'Permission denied',
         'You need to be logged in to view that page',
         '#000',
         '#fc8181'
-      );
+        );
     }
+    if (storedValue && mounted.current){
+      router.push('/app/dashboard');
+      Snackbar('Message', 'Login Successfully', '#000', '#68d391');
+    }
+    mounted.current = true;
     setSkip(0);
-    setTake(10);
-  }, []);
+    setTake(4);
+  }, [storedValue]);
 
   const { data, loading } = useQuery(GET_USER_EVENT, {
     variables: {
