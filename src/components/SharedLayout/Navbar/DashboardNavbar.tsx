@@ -1,19 +1,34 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { DownOutlined, MenuOutlined } from '@ant-design/icons';
 import store from 'store';
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Avatar } from 'antd';
 import { useRouter } from 'next/router';
+import { useQuery } from '@apollo/react-hooks';
 
 import Button from 'src/components/SharedLayout/Shared/Button';
 import { Snackbar } from 'src/components/SharedLayout/Shared/Snackbar';
+
+import {GET_PROFILE} from 'src/queries';
 
 type Props = {
   showDrawer: () => void;
 };
 
 const DashboardNavbar: FunctionComponent<Props> = ({showDrawer}) => {
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+
   const router = useRouter();
+  const {loading, data} = useQuery(GET_PROFILE);
+
+  useEffect(() => {
+    if (data && !loading){
+      const {getUserProfile} = data.client;
+      setFirstname(getUserProfile.firstname.charAt(0));
+      setLastname(getUserProfile.lastname.charAt(0));
+    }
+  },[data]);
 
   const _handleLogout = () => {
     store.remove('__cnt');
@@ -54,18 +69,16 @@ const DashboardNavbar: FunctionComponent<Props> = ({showDrawer}) => {
         <Link href="/app/create-event">
           <Button
             type="button"
-            className="bg-red-500 hover:bg-red-400 border-0 rounded border-white px-6 py-2 text-white c-CreateEvent"
+            className="bg-red-500 hover:bg-red-400 border-0 rounded border-white px-6 py-2 md:mr-4 text-white c-CreateEvent"
           >
             Create Event
           </Button>
         </Link>
         <Dropdown overlay={menu} trigger={['click']} placement="bottomLeft" className="hidden md:flex">
           <div className="flex items-center justify-around cursor-pointer ">
-            <img
-              src="/images/avatar.png"
-              alt="profile picture"
-              className="ml-4 c-DashboardNavbar-pic"
-            />
+            <Avatar>
+              {firstname.toUpperCase()}{lastname.toUpperCase()}
+            </Avatar>
             <DownOutlined />
           </div>
         </Dropdown>

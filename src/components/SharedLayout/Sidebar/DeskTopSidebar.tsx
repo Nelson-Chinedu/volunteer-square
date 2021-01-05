@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
-import { Drawer } from 'antd';
+import { Avatar, Drawer } from 'antd';
 import {
   DashboardOutlined,
   LoginOutlined,
@@ -55,12 +55,10 @@ const DesktopSidebar: FunctionComponent<Props> = ({visible, onClose}) => {
           <img src="/images/logoBrand.png" height="" alt="logo" className="c-logo"/>
           <CloseOutlined className="cursor-pointer md:hidden md:mr-0 mr-5" onClick={onClose}/>
         </div>
-        <div className="c-DesktopSidebar-bottom-profile mb-12">
-          <img
-            src="/images/avatar.png"
-            alt="profile picture"
-            className="m-auto w-40 mb-4"
-          />
+        <div className="c-DesktopSidebar-bottom-profile mb-12 text-center">
+          <Avatar size={64}>
+            {userFirstname.charAt(0).toUpperCase()}{userLastname.charAt(0).toUpperCase()}
+          </Avatar>
           <h4 className="text-center capitalize c-DesktopSidebar-name">
             {userFirstname} {userLastname}
           </h4>
