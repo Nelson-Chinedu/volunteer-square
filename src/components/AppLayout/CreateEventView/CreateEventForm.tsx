@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useState  } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Spin, Select, DatePicker, TimePicker } from 'antd';
 import { useRouter } from 'next/router';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useMutation } from '@apollo/react-hooks';
+import SunEditor from 'suneditor-react';
 
 import Input from 'src/components/SharedLayout/Shared/Input';
 import Button from 'src/components/SharedLayout/Shared/Button';
@@ -22,6 +23,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
   const [eventLocationError, setEventLocationError] = useState('');
   const [eventDateError, setEventDateError] = useState('');
   const [eventTimeError, setEventTimeError] = useState('');
+  const [eventRequirement, setEventRequirement] = useState(null);
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -87,6 +89,10 @@ const CreateEventForm: FunctionComponent<{}> = () => {
     }
   }
 
+  const _handleRequirement = (content: any) => {
+    setEventRequirement(JSON.stringify(content));
+  }
+
   const _handleCreateEvent = async (e: any) => {
     e.preventDefault();
     setSubmitting(true);
@@ -94,6 +100,7 @@ const CreateEventForm: FunctionComponent<{}> = () => {
       const userData = await createEvent({
         variables: {
           name: eventName,
+          description: eventRequirement,
           category: eventCategory,
           location: eventLocation,
           time: eventTime,
@@ -222,6 +229,22 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             <p className="text-red-400">{eventTimeError}</p>
           </div>
         </div>
+        <div>
+          <label htmlFor="">Event Description</label>
+          <SunEditor
+            setOptions={{
+              height:200,
+              buttonList: [[
+                'bold', 'italic', 'underline', 'subscript', 'superscript', 'list', 'formatBlock', 'align'
+              ]],
+              resizingBar: false,
+              customPlugins:[]
+            }}
+            setContents={eventRequirement}
+            onChange={_handleRequirement}
+            placeholder="Enter event description..."
+          />
+        </div>
         <Button
           type="submit"
           disabled={
@@ -230,7 +253,8 @@ const CreateEventForm: FunctionComponent<{}> = () => {
             !eventCategory ||
             !eventLocation ||
             !eventDate ||
-            !eventTime
+            !eventTime ||
+            !eventRequirement
           }
           filled={true}
           className="w-full text-white p-3 mt-6 mb-2"
