@@ -18,7 +18,7 @@ The following should be installed in your machine
 - Node.Js v10.13.0
 
 ## How To Install And Run The Application
-- Clone the local Volunteer-Square server from [here]('https://github.com/Nelson-Chinedu/volunteer-square-server') and `cd` into it
+- Clone the local Volunteer-Square server from [here](https://github.com/Nelson-Chinedu/volunteer-square-server) and `cd` into it
 - Install the dependencies by running `yarn install` or `npm install`
 - Start the local server mode by running `yarn dev`
 - Clone this Repo and `cd` into it
