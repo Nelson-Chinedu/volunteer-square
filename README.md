@@ -1,30 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+![All Contributors](https://img.shields.io/badge/licence-MIT-brightgreen)
+![All Contributors](https://img.shields.io/badge/PRs-welcome-brightgreen)
 
-## Getting Started
+# Volunteer Sqaure (WIP)
 
-First, run the development server:
+Get volunteers without the use of using Google form in sourcing for volunteers in your event
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Technologies Used
+- NextJs
+- TypeScript
+- GraphQL
+- Apollo Client
+- Rest Api
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prerequisites
+The following should be installed in your machine
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Node.Js v10.13.0
 
-## Learn More
+## How To Install And Run The Application
+- Clone the local Volunteer-Square server from [here]('https://github.com/Nelson-Chinedu/volunteer-square-server') and `cd` into it
+- Install the dependencies by running `yarn install` or `npm install`
+- Start the local server mode by running `yarn dev`
+- Clone this Repo and `cd` into it
+- Install the dependencies by running `yarn install` or `npm install`
+- Create a `.env` file with `key=values` in `.env.sample` file
+- Start the application on development mode by running `yarn dev`
 
-To learn more about Next.js, take a look at the following resources:
+## How To Contribute
+Kindly refer to the guide above to setup, and reachout to admin for further instructions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Issues
+Issues are always very welcome. Please be sure to create a constructive issue when necessary.
 
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
+## Pull Requests
+Pull request are welcome if anything is missing or something is buggy. However, there are a couple of things you can do to make life easier for the maintainers.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+ - Explain the issue that your PR is solving - or link to an existing issue
+ - Follow the repository structure, and new sections in the corresponding folders
+ - Ask questions to admin if unclear
