@@ -2,15 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 import { ClockCircleOutlined, EnvironmentOutlined, TagOutlined } from '@ant-design/icons';
-import {convertFromRaw} from 'draft-js';
-import {stateToHTML} from 'draft-js-export-html';
 
 import { GET_EVENT } from 'src/queries';
 
 import LazyLoad from 'src/components/SharedLayout/Shared/LazyLoad';
+import Footer from 'src/components/SharedLayout/Shared/Footer';
 
 import EventForm from 'src/components/MainLayout/HomePageView/EventForm';
-import Footer from 'src/components/SharedLayout/Shared/Footer';
 
 const Event: FunctionComponent<{}> = () => {
   const router = useRouter();
@@ -42,7 +40,9 @@ const Event: FunctionComponent<{}> = () => {
   const {
     getEvent: { name, location, category, date, time, description },
   } = data.public;
-  const htmlString = stateToHTML(convertFromRaw(JSON.parse(description)));
+
+  const htmlString = JSON.parse(description);
+
   return (
     <div>
       <div className="bg-white border-b border-gray-400 md:p-4">
